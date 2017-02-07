@@ -119,15 +119,15 @@ var __meta__ = { // jshint ignore:line
             }
 
             selected = target.hasClass(SELECTED);
-            if (!multiple || !ctrlKey) {
-                that.clear();
-            }
-
             target = target.add(that.relatedTarget(target));
 
             if (shiftKey) {
                 that.selectRange(that._firstSelectee(), target);
             } else {
+                if (!multiple || !ctrlKey) {
+                    that.clear();
+                }
+
                 if (selected && ctrlKey) {
                     that._unselect(target);
                     that._notify(CHANGE);
