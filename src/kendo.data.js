@@ -190,7 +190,8 @@ var __meta__ = { // jshint ignore:line
         splice: function(index, howMany, item) {
             var items = this.wrapAll(slice.call(arguments, 2)),
                 result, i, len;
-
+            index = isNaN(index) ? 0 : index;
+            howMany = isNaN(howMany) ? (this.length - index) : howMany
             result = splice.apply(this, [index, howMany].concat(items));
 
             if (result.length) {
