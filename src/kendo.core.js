@@ -2625,19 +2625,17 @@ function pad(number, digits, end) {
             };
         },
 
-        guid: function() {
-            var id = "", i, random;
-
-            for (i = 0; i < 32; i++) {
-                random = math.random() * 16 | 0;
-
-                if (i == 8 || i == 12 || i == 16 || i == 20) {
-                    id += "-";
+        guid:    kendo.guid = function () {
+            var id = new Array(36), i ;
+            id.fill(0);
+            for (i = 0; i < 36; i++) {
+                if (i === 8 || i === 12 || i === 16 || i === 20) {
+                    id[i] = '-';
+                } else {
+                    id[i] = (i === 12 ? 4 : i === 16 ? (Math.random() * 16 | 0) & 3 | 8 : (Math.random() * 16 | 0)).toString(16);
                 }
-                id += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
             }
-
-            return id;
+            return id.join('');
         },
 
         roleSelector: function(role) {
