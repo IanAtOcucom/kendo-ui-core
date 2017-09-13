@@ -2,6 +2,7 @@
 title: Scheduler
 page_title: Configuration, methods and events of Kendo UI Scheduler
 description: How to configure and control methods in Scheduler UI widget, which events to use to open, close, change, select.
+res_type: api
 ---
 
 # kendo.ui.Scheduler
@@ -153,7 +154,7 @@ If set to `false` the "current time" marker would be displayed using the schedul
     <script>
     $("#scheduler").kendoScheduler({
       date: new Date(),
-      timezone: "Europe/London", // Use the London timezone
+      timezone: "Etc/UTC",
       currentTimeMarker: {
         useLocalTimezone: false
       },
@@ -184,19 +185,19 @@ If the `dataSource` option is an existing [kendo.data.SchedulerDataSource](/api/
         batch: true,
         transport: {
           read: {
-            url: "http://demos.telerik.com/kendo-ui/service/tasks",
+            url: "https://demos.telerik.com/kendo-ui/service/tasks",
             dataType: "jsonp"
           },
           update: {
-            url: "http://demos.telerik.com/kendo-ui/service/tasks/update",
+            url: "https://demos.telerik.com/kendo-ui/service/tasks/update",
             dataType: "jsonp"
           },
           create: {
-            url: "http://demos.telerik.com/kendo-ui/service/tasks/create",
+            url: "https://demos.telerik.com/kendo-ui/service/tasks/create",
             dataType: "jsonp"
           },
           destroy: {
-            url: "http://demos.telerik.com/kendo-ui/service/tasks/destroy",
+            url: "https://demos.telerik.com/kendo-ui/service/tasks/destroy",
             dataType: "jsonp"
           },
           parameterMap: function(options, operation) {
@@ -255,7 +256,7 @@ If the `dataSource` option is an existing [kendo.data.SchedulerDataSource](/api/
     var dataSource = new kendo.data.SchedulerDataSource({
       transport: {
         read: {
-          url: "http://demos.telerik.com/kendo-ui/service/tasks",
+          url: "https://demos.telerik.com/kendo-ui/service/tasks",
           dataType: "jsonp"
         }
       }
@@ -1288,6 +1289,30 @@ The text similar to "All events" displayed in timeline views when there is no ve
     });
     </script>
 
+### messages.next `String`
+
+The tooltip of the next navigation button.
+
+#### Example - set the "next" message
+
+    <div id="scheduler"></div>
+    <script>
+    $("#scheduler").kendoScheduler({
+      messages: {
+        next: "Next"
+      },
+      date: new Date("2013/6/6"),
+      dataSource: [
+        {
+          id: 1,
+          start: new Date("2013/6/6 08:00 AM"),
+          end: new Date("2013/6/6 09:00 AM"),
+          title: "Interview"
+        }
+      ]
+    });
+    </script>
+
 ### messages.pdf `String`
 
 The text displayed by the PDF export button.
@@ -1300,6 +1325,30 @@ The text displayed by the PDF export button.
       toolbar: ["pdf"],
       messages: {
         pdf: "PDF Export"
+      },
+      date: new Date("2013/6/6"),
+      dataSource: [
+        {
+          id: 1,
+          start: new Date("2013/6/6 08:00 AM"),
+          end: new Date("2013/6/6 09:00 AM"),
+          title: "Interview"
+        }
+      ]
+    });
+    </script>
+
+### messages.previous `String`
+
+The tooltip of the previous navigation button.
+
+#### Example - set the "previous" message
+
+    <div id="scheduler"></div>
+    <script>
+    $("#scheduler").kendoScheduler({
+      messages: {
+        previous: "Previous"
       },
       date: new Date("2013/6/6"),
       dataSource: [
@@ -2451,6 +2500,10 @@ The text similar to "last" displayed in the scheduler recurrence editor.
       ]
     });
     </script>
+
+### messages.recurrenceEditor.recurrenceEditorTitle `String`
+
+The text of the Recurence editor dropdown title.
 
 ### messages.recurrenceEditor.weekly `Object`
 
@@ -4029,24 +4082,24 @@ The complete list of the supported timezones is available in the [List of IANA t
     <script>
     $("#scheduler").kendoScheduler({
         date: new Date("2013/6/13"),
-        timezone: "Europe/London", // Use the London timezone
+        timezone: "Etc/UTC",
         dataSource: {
             batch: true,
             transport: {
                 read: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks",
                     dataType: "jsonp"
                 },
                 update: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks/update",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks/update",
                     dataType: "jsonp"
                 },
                 create: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks/create",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks/create",
                     dataType: "jsonp"
                 },
                 destroy: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks/destroy",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks/destroy",
                     dataType: "jsonp"
                 },
                 parameterMap: function(options, operation) {
@@ -4791,7 +4844,7 @@ Overrides the [date](#configuration-group.date) option of the scheduler.
         }
       ],
       group: {
-        resources: ["Rooms"]       
+        resources: ["Rooms"]
       },
       dataSource: [
         {
@@ -5071,7 +5124,7 @@ If set to true the view will be initially shown in business hours mode. By defau
     <script>
     $("#scheduler").kendoScheduler({
       date: new Date("2013/6/6"),
-      views: [ { type: "day", showWorkHours: true }, "week"]
+      views: [ { type: "day", showWorkHours: true }, "week"],
       dataSource: [
         {
           id: 1,
@@ -5985,7 +6038,7 @@ Get the time slot from given element.
 
 ### view
 
-Sets the current Scheduler view.
+Gets or sets the current Scheduler view.
 
 To get the current Scheduler view name, use the [`viewName` method](#methods-viewName).
 
@@ -5994,6 +6047,10 @@ To get the current Scheduler view name, use the [`viewName` method](#methods-vie
 ##### type `String` *(optional)*
 
 The view type to select.
+
+#### Returns
+
+`kendo.ui.SchedulerView` the current Scheduler view.
 
 #### Example - set the current view
 

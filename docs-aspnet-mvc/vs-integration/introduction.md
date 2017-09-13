@@ -1,6 +1,6 @@
 ---
 title: Overview
-page_title: Overview | UI for ASP.NET MVC Visual Studio Integration
+page_title: Overview | Telerik UI for ASP.NET MVC Visual Studio Integration
 description: "Learn how to enhance experience of developing web applications with Telerik UI for ASP.NET MVC."
 slug: overview_visualstudio_aspnetmvc
 position: 1

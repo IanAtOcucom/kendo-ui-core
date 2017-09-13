@@ -265,7 +265,7 @@ When multi-page output is requested via `forcePageBreak` or `paperSize`, you can
                 type: "odata",
                 transport: {
                     read: {
-                        url: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Products",
+                        url: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Products",
                     }
                 }
             },
@@ -471,6 +471,7 @@ For more information on the provided [browser support]({% slug wbe_browserand_op
 - Images hosted on different domains will not be rendered, unless permissive [Cross-Origin HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image) are provided by the server. Similarly, fonts might not be possible to load cross-domain. Even with the proper CORS headers, Internet Explorer 9 will not be able to load images or fonts from another domain, and could raise an uncatchable security exception. If you need to support Internet Explorer 9, make sure to host images and fonts on the same domain as the application.
 - Images will not be exported in IE if their source is an SVG document. These are considered to be tainted.
 - Exporting might not work when loading the page from a local file (`file://` protocol) due to CORS restrictions.
+- Exporting vertically aligned elements might not work well with automatic page-breaking.
 - The content of the `<iframe>` and `<svg>` elements is not processed. For example, it will not be exported by the Drawing API.
 - A `<canvas>` will be rendered as an image, but only if it is non-tainted, meaning if it does not display images from another domain.
 - CSS box-shadow, text-shadow, and radial gradients are omitted. Linear gradients are supported.
@@ -481,7 +482,6 @@ For more information on the provided [browser support]({% slug wbe_browserand_op
 - Shadow DOM is not rendered.
 - SVG referenced with the `<img>` tag will not render in Internet Explorer, because [IE taints the canvas](http://stackoverflow.com/questions/31484379/ie-canvas-datauri-security-error).
 - Rendering of the `<select>` elements is imperfect. Some minor issues can be noticed, like wrong padding or missing the drop down arrow. It is recommended to use a Kendo UI DropDown or ListView widget instead of a plain `<select>`.
-- When the generated document is opened with Acrobat Reader and you try to use the `Save As` option from the file menu, the following error is thrown: `The document could not be saved. There was a problem reading(23)`. The solution is to open the Acrobat Reader options (**Edit** > **Preferences**) and to uncheck `Save As optimizes for Fast Web View` in the **Documents** section, which is enabled by default. After this, **Save As** works without errors.
 
 ## See Also
 

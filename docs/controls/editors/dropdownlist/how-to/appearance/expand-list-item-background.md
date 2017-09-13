@@ -1,18 +1,16 @@
 ---
 title: Expand Backgrounds of Long List Items
 page_title: Expand Backgrounds of Long List Items | Kendo UI DropDownList
-description: "Learn how to expand the background of long list items in Kendo UI ComboBox, AutoComplete, DropDownList, and MultiSelect widgets."
+description: "Learn how to expand the background of long list items in the Kendo UI ComboBox, AutoComplete, DropDownList, and MultiSelect widgets."
 previous_url: /controls/editors/dropdownlist/how-to/expand-list-item-background
 slug: howto_expand_background_longlist_items_dropdownlist
 ---
 
 # Expand Backgrounds of Long List Items
 
-To see the example, refer to the article on [expanding the background of long list items in Kendo UI DropDownLists]({% slug howto_expand_background_longlist_items_combobox %}).
+To see the example, refer to the article on [expanding the background of long list items in Kendo UI ComboBoxes]({% slug howto_expand_background_longlist_items_combobox %}).
 
 ## See Also
-
-Other articles on the Kendo UI DropDownList:
 
 * [DropDownList JavaScript API Reference](/api/javascript/ui/dropdownlist)
 * [How to Automatically Adjust the Width of a DropDownList]({% slug howto_automatically_adjust_width_dropdownlist %})
@@ -25,4 +23,4 @@ Other articles on the Kendo UI DropDownList:
 * [How to Update MVVM Bound Models on Load]({% slug howto_update_mvvm_model_onload_dropdownlist %})
 * [How to Validate DropDownLists by Using Required Attributes]({% slug howto_validate_using_required_attributes_dropdownlist %})
 
-For more runnable examples on the Kendo UI DropDownList, browse its [**How To** documentation folder]({% slug howto_cascade_withngrepeat_distinct_values_dropdownlist %}).
+For more runnable examples on the Kendo UI DropDownList, browse its [**How To** documentation folder]({% slug howto_bindobjectstongmodel_dropdownlist %}).

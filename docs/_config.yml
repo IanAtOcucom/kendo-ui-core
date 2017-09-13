@@ -55,21 +55,24 @@ navigation:
     "controls/data-management/grid/how-to/integration":
         title: "Integration"
         position: 9
+    "controls/data-management/grid/how-to/Paging":
+        title: "Paging"
+        position: 10
     "controls/data-management/grid/how-to/Selection":
         title: "Selection"
-        position: 10
+        position: 11
     "controls/data-management/grid/how-to/sorting":
         title: "Sorting"
-        position: 11
+        position: 12
     "controls/data-management/grid/how-to/state":
         title: "State Management"
-        position: 12
+        position: 13
     "controls/data-management/grid/how-to/Templates":
         title: "Templates"
-        position: 13
+        position: 14
     "controls/data-management/grid/how-to/various":
         title: "Various"
-        position: 14
+        position: 15
     "controls/editors":
         title: "Editors"
         position: 2
@@ -257,10 +260,10 @@ navigation:
         title: "Tutorials"
         position: 8
     "jsp":
-        title: "UI for JSP"
+        title: "Progress<sup>®</sup> Telerik<sup>®</sup> UI for JSP"
         position: 9
     "php":
-        title: "UI for PHP"
+        title: "Progress<sup>®</sup> Telerik<sup>®</sup> UI for PHP"
         position: 10
     "php/widgets":
         title: "Classes"
@@ -274,8 +277,10 @@ navigation:
         title: "Breaking Changes"
         position: 13
     "updates":
-        title: "Updates and  Contribution"
+        title: "Updates and Contribution"
         position: 14
+    "knowledge-base":
+        title: "Knowledge Base"
     "copyright":
         title: "Copyright"
         position: 15
@@ -312,8 +317,18 @@ navigation:
         title: "Customizing Behavior"
     "*other":
         title: "Other"
+    "*scrolling":
+        title: "Scrolling"
+    "*validation":
+        title: "Validation"
     "*selection":
         title: "Selection"
+    "*various":
+        title: "Various"
+    "*nodes":
+        title: "Handling Nodes"
+    "*custom-views":
+        title: "Custom Views"
     "*angular":
         title: "AngularJS"
         position: 1
@@ -408,6 +423,8 @@ navigation:
         title: "Validator"
     "*autocomplete":
         title: "AutoComplete"
+    "*autocomplete/how-to/input":
+        title: "Managing Inputs"
     "*/button":
         title: "Button"
     "*/radiobutton":
@@ -422,6 +439,8 @@ navigation:
         title: "ColorPicker"
     "*combobox":
         title: "ComboBox"
+    "*dateinput":
+        title: "DateInput"
     "*datepicker":
         title: "DatePicker"
     "*datetimepicker":
@@ -445,16 +464,18 @@ navigation:
     "*spreadsheet":
         title: "Spreadsheet"
     "*import-and-export-data":
-        title: "Import and Export Data"
+        title: "Import and Export of Data"
         position: 5
     "*localization-spreadsh":
         title: "Localization"
         position: 6
     "*end-user":
-        title: "For the End User"
+        title: "End-User Documentation"
         position: 7
     "*listview":
         title: "ListView"
+    "*listbox":
+        title: "ListBox"
     "*maskedtextbox":
         title: "MaskedTextBox"
     "*menu":
@@ -520,15 +541,17 @@ navigation:
     "api/php":
         title: "PHP"
         position: 4
+    "all-pages":
+        title: "All Pages GSA"
 
 ## The application virtual path
 baseurl: /kendo-ui
 
 ## The Kendo UI version used
-cdnVersion: "2017.1.118"
+cdnVersion: "2017.2.621"
 
 ## The MVC Core version used
-mvcCoreVersion: "2017.1.118"
+mvcCoreVersion: "2017.2.621"
 
 ## Progress NPM Registry
 registry_url: 'https://registry.npm.telerik.com/'
@@ -575,6 +598,11 @@ defaults:
         path: "api/javascript"
     values:
         editableExample: "true"
+-
+    scope:
+        path: "knowledge-base"
+    values:
+        layout: "kb-page"
 
 type_links:
     "kendo.Class": "/api/javascript/class"
@@ -589,13 +617,18 @@ type_links:
     "Object": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object"
     "Number": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number"
     "String": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String"
+    "Date": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date"
+    "Element": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement"
 
 # Aliases available in the markdown template. The below will expand {{site.foo}} to Bar in the output
 # "foo": "Bar"
 
+ff-sheet-id: 14zzclhdh7dMLpg0iq4-2hweCdEiuxxqP3tHdr42-_Cs
+
 # The google services configuration
 google_tag_manager: GTM-6X92
 google_custom_search: '001595215763381649090:eblhnfskwrk'
+google_custom_kb_search: '001595215763381649090:3n6bl34et7c'
 
 # Assets pipeline configuration
 assets:

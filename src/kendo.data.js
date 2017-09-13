@@ -701,6 +701,7 @@ var __meta__ = { // jshint ignore:line
             ObservableObject.fn.init.call(that, data);
 
             that.dirty = false;
+            that.dirtyFields = {};
 
             if (that.idField) {
                 that.id = that.get(that.idField);
@@ -712,7 +713,9 @@ var __meta__ = { // jshint ignore:line
         },
 
         shouldSerialize: function(field) {
-            return ObservableObject.fn.shouldSerialize.call(this, field) && field !== "uid" && !(this.idField !== "id" && field === "id") && field !== "dirty" && field !== "_accessors";
+            return ObservableObject.fn.shouldSerialize.call(this, field) &&
+                field !== "uid" && !(this.idField !== "id" && field === "id") &&
+                field !== "dirty" &&  field !== "dirtyFields" && field !== "_accessors";
         },
 
         _parse: function(field, value) {
@@ -740,6 +743,7 @@ var __meta__ = { // jshint ignore:line
 
             if (action == "add" || action == "remove") {
                 this.dirty = true;
+                this.dirtyFields[e.field] = true;
             }
         },
 
@@ -757,9 +761,14 @@ var __meta__ = { // jshint ignore:line
 
                 if (!equal(value, that.get(field))) {
                     that.dirty = true;
+                    that.dirtyFields[field] = true;
 
                     if (ObservableObject.fn.set.call(that, field, value, initiator) && !dirty) {
                         that.dirty = dirty;
+
+                        if (!that.dirty) {
+                            that.dirtyFields[field] = false;
+                        }
                     }
                 }
             }
@@ -785,6 +794,7 @@ var __meta__ = { // jshint ignore:line
             }
 
             that.dirty = false;
+            that.dirtyFields = {};
         },
 
         isNew: function() {
@@ -1386,7 +1396,7 @@ var __meta__ = { // jshint ignore:line
         select: function (selector) {
             return new Query(map(this.data, selector));
         },
-        order: function(selector, dir) {
+        order: function(selector, dir, inPlace) {
             var sort = { dir: dir };
 
             if (selector) {
@@ -1397,15 +1407,18 @@ var __meta__ = { // jshint ignore:line
                 }
             }
 
+            if (inPlace) {
+                return new Query(this.data.sort(Comparer.create(sort)));
+            }
             return new Query(this.data.slice(0).sort(Comparer.create(sort)));
         },
-        orderBy: function(selector) {
-            return this.order(selector, "asc");
+        orderBy: function(selector, inPlace) {
+            return this.order(selector, "asc", inPlace);
         },
-        orderByDescending: function(selector) {
-            return this.order(selector, "desc");
+        orderByDescending: function(selector, inPlace) {
+            return this.order(selector, "desc", inPlace);
         },
-        sort: function(field, dir, comparer) {
+        sort: function(field, dir, comparer, inPlace) {
             var idx,
             length,
             descriptors = normalizeSort(field, dir),
@@ -1418,7 +1431,7 @@ var __meta__ = { // jshint ignore:line
                     comparers.push(comparer.create(descriptors[idx]));
                 }
 
-                return this.orderBy({ compare: comparer.combine(comparers) });
+                return this.orderBy({ compare: comparer.combine(comparers) }, inPlace);
             }
 
             return this;
@@ -1667,7 +1680,7 @@ var __meta__ = { // jshint ignore:line
         return result;
     }
 
-    Query.process = function(data, options) {
+    Query.process = function(data, options, inPlace) {
         options = options || {};
 
         var query = new Query(data),
@@ -1690,7 +1703,12 @@ var __meta__ = { // jshint ignore:line
         }
 
         if (sort) {
-            query = query.sort(sort);
+            if (inPlace) {
+                query = query.sort(sort, undefined, undefined, inPlace);
+            }
+            else {
+                query = query.sort(sort);
+            }
 
             if (group) {
                 data = query.toArray();
@@ -2189,10 +2207,13 @@ var __meta__ = { // jshint ignore:line
         }
     }
 
-    function removeModel(data, model) {
-        var idx, length;
+    function removeModel(data, model, skip, take) {
+        var length = data.length;
+        var startIndex = skip || 0;
+        var endIndex = typeof(take) !== "undefined" ? math.min(startIndex + take, length) : length;
+        var idx;
 
-        for (idx = 0, length = data.length; idx < length; idx++) {
+        for (idx = startIndex; idx < endIndex; idx++) {
             var dataItem = data.at(idx);
             if (dataItem.uid == model.uid) {
                 data.splice(idx, 1);
@@ -2378,7 +2399,8 @@ var __meta__ = { // jshint ignore:line
             serverFiltering: false,
             serverGrouping: false,
             serverAggregates: false,
-            batch: false
+            batch: false,
+            inPlaceSort: false
         },
 
         clone: function() {
@@ -2460,7 +2482,7 @@ var __meta__ = { // jshint ignore:line
         parent: noop,
 
         get: function(id) {
-            var idx, length, data = this._flatData(this._data);
+            var idx, length, data = this._flatData(this._data, this.options.useRanges);
 
             for (idx = 0, length = data.length; idx < length; idx++) {
                 if (data[idx].id == id) {
@@ -2470,7 +2492,11 @@ var __meta__ = { // jshint ignore:line
         },
 
         getByUid: function(id) {
-            var idx, length, data = this._flatData(this._data);
+            return this._getByUid(id, this._data);
+        },
+
+        _getByUid: function(id, dataItems) {
+            var idx, length, data = this._flatData(dataItems, this.options.useRanges);
 
             if (!data) {
                 return;
@@ -2579,10 +2605,17 @@ var __meta__ = { // jshint ignore:line
                 this._data.splice(index, 0, model);
             }
 
+            this._insertModelInRange(index, model);
+
             return model;
         },
 
-        pushCreate: function(items) {
+        pushInsert: function(index, items) {
+            if (!items) {
+                items = index;
+                index = 0;
+            }
+
             if (!isArray(items)) {
                 items = [items];
             }
@@ -2595,7 +2628,7 @@ var __meta__ = { // jshint ignore:line
                 for (var idx = 0; idx < items.length; idx ++) {
                     var item = items[idx];
 
-                    var result = this.add(item);
+                    var result = this.insert(index, item);
 
                     pushed.push(result);
 
@@ -2606,6 +2639,8 @@ var __meta__ = { // jshint ignore:line
                     }
 
                     this._pristineData.push(pristine);
+
+                    index++;
                 }
             } finally {
                 this.options.autoSync = autoSync;
@@ -2617,6 +2652,10 @@ var __meta__ = { // jshint ignore:line
                     items: pushed
                 });
             }
+        },
+
+        pushCreate: function(items) {
+            this.pushInsert(this._data.length, items);
         },
 
         pushUpdate: function(items) {
@@ -2708,7 +2747,12 @@ var __meta__ = { // jshint ignore:line
                 hasGroups = that._isServerGrouped();
 
             this._eachItem(that._data, function(items) {
-                result = removeModel(items, model);
+                if (that.options.useRanges && !that.options.serverPaging) {
+                    result = removeModel(items, model, that.currentRangeStart(), that.take());
+                } else {
+                    result = removeModel(items, model);
+                }
+
                 if (result && hasGroups) {
                     if (!result.isNew || !result.isNew()) {
                         that._destroyed.push(result);
@@ -2718,8 +2762,6 @@ var __meta__ = { // jshint ignore:line
             });
 
             this._removeModelFromRanges(model);
-
-            this._updateRangesLength();
 
             return model;
         },
@@ -2732,7 +2774,7 @@ var __meta__ = { // jshint ignore:line
             var idx,
                 length,
                 result = [],
-                data = this._flatData(this._data);
+                data = this._flatData(this._data, this.options.useRanges);
 
             for (idx = 0, length = data.length; idx < length; idx++) {
                 if (data[idx].isNew && data[idx].isNew()) {
@@ -2746,7 +2788,7 @@ var __meta__ = { // jshint ignore:line
             var idx,
                 length,
                 result = [],
-                data = this._flatData(this._data);
+                data = this._flatData(this._data, this.options.useRanges);
 
             for (idx = 0, length = data.length; idx < length; idx++) {
                 if ((data[idx].isNew && !data[idx].isNew()) && data[idx].dirty) {
@@ -2823,7 +2865,7 @@ var __meta__ = { // jshint ignore:line
                 }
 
                 that._ranges = [];
-                that._addRange(that._data);
+                that._addRange(that._data, 0);
 
                 that._change();
 
@@ -2849,7 +2891,7 @@ var __meta__ = { // jshint ignore:line
         hasChanges: function() {
             var idx,
                 length,
-                data = this._flatData(this._data);
+                data = this._flatData(this._data, this.options.useRanges);
 
             if (this._destroyed.length) {
                 return true;
@@ -2970,6 +3012,7 @@ var __meta__ = { // jshint ignore:line
         },
 
         _cancelModel: function(model) {
+            var that = this;
             var pristine = this._pristineForModel(model);
 
             this._eachItem(this._data, function(items) {
@@ -2984,6 +3027,8 @@ var __meta__ = { // jshint ignore:line
 
                     } else {
                         items.splice(idx, 1);
+
+                        that._removeModelFromRanges(model);
                     }
                 }
             });
@@ -2993,6 +3038,8 @@ var __meta__ = { // jshint ignore:line
             var that = this;
 
             that.trigger(REQUESTSTART, { type: "submit" });
+
+            that.trigger(PROGRESS);
 
             that.transport.submit(extend({
                 success: function(response, type) {
@@ -3061,6 +3108,8 @@ var __meta__ = { // jshint ignore:line
 
             return $.Deferred(function(deferred) {
                 that.trigger(REQUESTSTART, { type: type });
+
+                that.trigger(PROGRESS);
 
                 that.transport[type].call(that.transport, extend({
                     success: function(response) {
@@ -3204,7 +3253,16 @@ var __meta__ = { // jshint ignore:line
 
             that._detachObservableParents();
 
-            that._data = that._observe(data);
+            if (that.options.endless) {
+                that._data.unbind(CHANGE, that._changeHandler);
+                data = that._observe(data);
+                for (var i = 0; i < data.length; i++) {
+                    that._data.push(data[i]);
+                }
+                that._data.bind(CHANGE, that._changeHandler);
+            } else {
+                that._data = that._observe(data);
+            }
 
             that._markOfflineUpdatesAsDirty();
 
@@ -3276,9 +3334,9 @@ var __meta__ = { // jshint ignore:line
             }
         },
 
-        _addRange: function(data) {
+        _addRange: function(data, skip) {
             var that = this,
-                start = that._skip || 0,
+                start = typeof(skip) !== "undefined" ? skip : (that._skip || 0),
                 end = start + that._flatData(data, true).length;
 
             that._ranges.push({ start: start, end: end, data: data, timestamp: new Date().getTime() });
@@ -3522,7 +3580,12 @@ var __meta__ = { // jshint ignore:line
         },
 
         _queryProcess: function(data, options) {
-            return Query.process(data, options);
+            if (this.options.inPlaceSort) {
+                return Query.process(data, options, this.options.inPlaceSort);
+            }
+            else {
+                return Query.process(data, options);
+            }
         },
 
         _mergeState: function(options) {
@@ -3571,6 +3634,17 @@ var __meta__ = { // jshint ignore:line
             var remote = this.options.serverSorting || this.options.serverPaging || this.options.serverFiltering || this.options.serverGrouping || this.options.serverAggregates;
 
             if (remote || ((this._data === undefined || this._data.length === 0) && !this._destroyed.length)) {
+                if (this.options.endless) {
+                    var moreItemsCount = options.pageSize - this.pageSize();
+                    if (moreItemsCount > 0) {
+                        moreItemsCount = this.pageSize();
+                        options.page = options.pageSize / moreItemsCount;
+                        options.pageSize = moreItemsCount;
+                    } else {
+                        options.page = 1;
+                        this.options.endless = false;
+                    }
+                }
                 return this.read(this._mergeState(options));
             }
 
@@ -3679,8 +3753,12 @@ var __meta__ = { // jshint ignore:line
         pageSize: function(val) {
             var that = this;
 
-            if(val !== undefined) {
-                that._query({ pageSize: val, page: 1 });
+            if (val !== undefined) {
+                if (that.options.inPlaceSort) {
+                    that._query({ pageSize: val, page: 1, sort: {} });
+                } else {
+                    that._query({ pageSize: val, page: 1 });
+                }
                 return;
             }
 
@@ -3821,7 +3899,7 @@ var __meta__ = { // jshint ignore:line
             return new Date().getTime();
         },
 
-        range: function(skip, take) {
+        range: function(skip, take, callback) {
             this._currentRequestTimeStamp = this._timeStamp();
             this._skipRequestsInProgress = true;
 
@@ -3869,6 +3947,10 @@ var __meta__ = { // jshint ignore:line
                     that.options.serverAggregates = aggregates;
                 }
 
+                if (isFunction(callback)) {
+                    callback();
+                }
+
                 return;
             }
 
@@ -3877,15 +3959,15 @@ var __meta__ = { // jshint ignore:line
                     that.prefetch(pageSkip, take, function() {
                         if (skip > pageSkip && size < that.total() && !that._rangeExists(size, math.min(size + take, that.total()))) {
                             that.prefetch(size, take, function() {
-                                that.range(skip, take);
+                                that.range(skip, take, callback );
                             });
                         } else {
-                            that.range(skip, take);
+                            that.range(skip, take, callback);
                         }
                     });
                 } else if (pageSkip < skip) {
                     that.prefetch(size, take, function() {
-                        that.range(skip, take);
+                        that.range(skip, take, callback );
                     });
                 }
             }
@@ -3923,8 +4005,12 @@ var __meta__ = { // jshint ignore:line
                             rangeEnd = range.end;
 
                             if (!remote) {
-                                var sort = normalizeGroup(that.group() || []).concat(normalizeSort(that.sort() || []));
-                                processed = that._queryProcess(range.data, { sort: sort, filter: that.filter() });
+                                if (options.inPlaceSort) {
+                                    processed = that._queryProcess(range.data, { filter: that.filter() });
+                                } else {
+                                    var sort = normalizeGroup(that.group() || []).concat(normalizeSort(that.sort() || []));
+                                    processed = that._queryProcess(range.data, { sort: sort, filter: that.filter() });
+                                }
                                 flatData = rangeData = processed.data;
 
                                 if (processed.total !== undefined) {
@@ -4114,6 +4200,7 @@ var __meta__ = { // jshint ignore:line
         },
 
         _removeModelFromRanges: function(model) {
+            var that = this;
             var result,
                 found,
                 range;
@@ -4122,7 +4209,12 @@ var __meta__ = { // jshint ignore:line
                 range = this._ranges[idx];
 
                 this._eachItem(range.data, function(items) {
-                    result = removeModel(items, model);
+                    if (that.options.useRanges && !that.options.serverPaging) {
+                        result = removeModel(items, model, that.currentRangeStart(), that.take());
+                    } else {
+                        result = removeModel(items, model);
+                    }
+
                     if (result) {
                         found = true;
                     }
@@ -4132,20 +4224,61 @@ var __meta__ = { // jshint ignore:line
                     break;
                 }
             }
+
+            that._updateRangesLength();
+        },
+
+        _insertModelInRange: function(index, model) {
+            var that = this;
+            var ranges = that._ranges || [];
+            var rangesLength = ranges.length;
+            var range;
+            var i;
+
+            for (i = 0; i < rangesLength; i++) {
+                range = ranges[i];
+
+                if (range.start <= index && range.end >= index) {
+                    if (!that._getByUid(model.uid, range.data)) {
+                        if (that._isServerGrouped()) {
+                            range.data.splice(index, 0, that._wrapInEmptyGroup(model));
+                        } else {
+                            range.data.splice(index, 0, model);
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+            that._updateRangesLength();
         },
 
         _updateRangesLength: function() {
-            var startOffset = 0,
-                range,
-                rangeLength;
+            var that = this;
+            var ranges = that._ranges || [];
+            var rangesLength = ranges.length;
+            var mismatchFound = false;
+            var mismatchLength = 0;
+            var lengthDifference = 0;
+            var range;
+            var i;
 
-            for (var idx = 0, length = this._ranges.length; idx < length; idx++) {
-                range = this._ranges[idx];
-                range.start = range.start - startOffset;
+            for (i = 0; i < rangesLength; i++) {
+                range = ranges[i];
+                lengthDifference = that._flatData(range.data, true).length - math.abs(range.end - range.start);
 
-                rangeLength = this._flatData(range.data, true).length;
-                startOffset = range.end - rangeLength;
-                range.end = range.start + rangeLength;
+                if (!mismatchFound && lengthDifference !== 0) {
+                    mismatchFound = true;
+                    mismatchLength = lengthDifference;
+                    range.end += mismatchLength;
+                    continue;
+                }
+
+                if (mismatchFound) {
+                    range.start += mismatchLength;
+                    range.end += mismatchLength;
+                }
             }
         }
     });
@@ -4359,7 +4492,13 @@ var __meta__ = { // jshint ignore:line
             }
 
             if (isFunction(hasChildren)) {
-                that.hasChildren = !!hasChildren.call(that, that);
+                var hasChildrenObject = hasChildren.call(that, that);
+
+                if(hasChildrenObject && hasChildrenObject.length === 0){
+                    that.hasChildren = false;
+                } else{
+                    that.hasChildren = !!hasChildrenObject;
+                }
             }
 
             that._childrenOptions = childrenOptions;
@@ -4464,6 +4603,10 @@ var __meta__ = { // jshint ignore:line
 
                 children.one(CHANGE, proxy(this._childrenLoaded, this));
 
+                if(this._matchFilter){
+                    options.filter = { field: '_matchFilter', operator: 'eq', value: true };
+                }
+
                 promise = children[method](options);
             } else {
                 this.loaded(true);
@@ -4514,6 +4657,11 @@ var __meta__ = { // jshint ignore:line
                 children: options
             });
 
+            if(options.filter && !options.serverFiltering){
+                this._hierarchicalFilter = options.filter;
+                options.filter = null;
+            }
+
             DataSource.fn.init.call(this, extend(true, {}, { schema: { modelBase: node, model: node } }, options));
 
             this._attachBubbleHandlers();
@@ -4525,6 +4673,22 @@ var __meta__ = { // jshint ignore:line
             that._data.bind(ERROR, function(e) {
                 that.trigger(ERROR, e);
             });
+        },
+
+        read: function(data) {
+            var result = DataSource.fn.read.call(this, data);
+
+            if(this._hierarchicalFilter){
+                if(this._data && this._data.length > 0){
+                    this.filter(this._hierarchicalFilter);
+                }else{
+                    this.options.filter = this._hierarchicalFilter;
+                    this._filter = normalizeFilter(this.options.filter);
+                    this._hierarchicalFilter = null;
+                }
+            }
+
+            return result;
         },
 
         remove: function(node){
@@ -4558,6 +4722,73 @@ var __meta__ = { // jshint ignore:line
             }
 
             return DataSource.fn.insert.call(this, index, model);
+        },
+
+        filter: function(val) {
+            if (val === undefined) {
+                 return this._filter;
+            }
+
+            if(!this.options.serverFiltering && this._markHierarchicalQuery(val)){
+                val = { logic: "or", filters: [val, {field:'_matchFilter', operator: 'equals', value: true }]};
+            }
+
+            this.trigger("reset");
+            this._query({ filter: val, page: 1 });
+        },
+
+        _markHierarchicalQuery: function(expressions){
+            var compiled;
+            var predicate;
+            var fields;
+            var operators;
+            var filter;
+
+            expressions = normalizeFilter(expressions);
+
+            if (!expressions || expressions.filters.length === 0) {
+                this._updateHierarchicalFilter(function(){return true;});
+                return false;
+            }
+
+            compiled = Query.filterExpr(expressions);
+            fields = compiled.fields;
+            operators = compiled.operators;
+
+            predicate = filter = new Function("d, __f, __o", "return " + compiled.expression);
+
+            if (fields.length || operators.length) {
+                filter = function(d) {
+                    return predicate(d, fields, operators);
+                };
+            }
+
+            this._updateHierarchicalFilter(filter);
+            return true;
+        },
+
+         _updateHierarchicalFilter: function(filter){
+            var current;
+            var data = this._data;
+            var result = false;
+
+            for (var idx = 0; idx < data.length; idx++) {
+                 current = data[idx];
+
+                 if(current.hasChildren){
+                     current._matchFilter = current.children._updateHierarchicalFilter(filter);
+                    if(!current._matchFilter){
+                        current._matchFilter = filter(current);
+                    }
+                }else{
+                    current._matchFilter = filter(current);
+                }
+
+                if(current._matchFilter){
+                    result = true;
+                }
+            }
+            return result;
         },
 
         _find: function(method, value) {

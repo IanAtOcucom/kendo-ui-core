@@ -31,7 +31,7 @@ The `ClientTemplateId` is mandatory for the ListView widget. It contains the `id
 
 ## Common DataSource Settings
 
-The `DataSource` of the Kendo UI ListView for ASP.NET MVC contains configuration used by the [Kendo UI DataSource](../../../kendo-ui/api/javascript/data/datasource) object.
+The `DataSource` of the Kendo UI ListView for ASP.NET MVC contains configuration used by the [Kendo UI DataSource](http://docs.telerik.com/kendo-ui/api/javascript/data/datasource) object.
 
 Kendo UI ListView for ASP.NET MVC supports [Ajax]({% slug ajaxbinding_listviewhelper_aspnetmvc %}) type of data source.
 
@@ -57,7 +57,7 @@ Specify the action method which will destroy the existing models.
 
 ### Events
 
-Handle the [events](../../../kendo-ui/api/javascript/data/datasource#events) of the Kendo UI DataSource object.
+Handle the [events](http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#events) of the Kendo UI DataSource object.
 
 ###### Example
 
@@ -156,8 +156,6 @@ Specify the action method which will update the existing models.
 
 ## See Also
 
-Other articles on Telerik UI for ASP.NET MVC and on the ListView:
-
 * [Overview of the ListView HtmlHelper]({% slug overview_listviewhelper_aspnetmvc %})
 * [Ajax Binding of the ListView HtmlHelper]({% slug ajaxbinding_listviewhelper_aspnetmvc %})
 * [Editing of the ListView HtmlHelper]({% slug eiditing_listviewhelper_aspnetmvc %})
@@ -165,7 +163,7 @@ Other articles on Telerik UI for ASP.NET MVC and on the ListView:
 * [Overview of Telerik UI for ASP.NET MVC]({% slug overview_aspnetmvc %})
 * [Fundamentals of Telerik UI for ASP.NET MVC]({% slug fundamentals_aspnetmvc %})
 * [Scaffolding in Telerik UI for ASP.NET MVC]({% slug scaffolding_aspnetmvc %})
-* [Telerik UI for ASP.NET MVC API Reference Folder](/api/Kendo.Mvc/AggregateFunction)
+* [Telerik UI for ASP.NET MVC API Reference Folder](http://docs.telerik.com/kendo-ui/api/Kendo.Mvc/AggregateFunction)
 * [Telerik UI for ASP.NET MVC HtmlHelpers Folder]({% slug overview_barcodehelper_aspnetmvc %})
 * [Tutorials on Telerik UI for ASP.NET MVC]({% slug overview_timeefficiencyapp_aspnetmvc6 %})
 * [Telerik UI for ASP.NET MVC Troubleshooting]({% slug troubleshooting_aspnetmvc %})

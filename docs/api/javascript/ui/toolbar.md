@@ -2,6 +2,7 @@
 title: ToolBar
 page_title: Configuration, methods and events of Kendo UI ToolBar
 relatedDocs: gs-web-toolbar-overview
+res_type: api
 ---
 
 # kendo.ui.ToolBar
@@ -292,14 +293,14 @@ If set, the ToolBar will render an image with the specified URL in the button.
     <div id="toolbar"></div>
 
     <script>
-    var baseUrl = "http://demos.telerik.com/kendo-ui/content/shared/icons";
+    var baseUrl = "https://demos.telerik.com/kendo-ui/content/shared/icons";
     $("#toolbar").kendoToolBar({
       items: [
         {
           type: "buttonGroup",
           buttons: [
-            { text: "foo", imageUrl: "/sports/snowboarding.png" },
-            { text: "bar", imageUrl: "/sports/snowboarding.png" }
+            { text: "foo", imageUrl: baseUrl + "/sports/snowboarding.png" },
+            { text: "bar", imageUrl: baseUrl + "/sports/snowboarding.png" }
           ]
         }
       ]
@@ -612,7 +613,7 @@ If set, the ToolBar will render an image with the specified URL in the button.
     <div id="toolbar"></div>
 
     <script>
-        var baseUrl = "http://demos.telerik.com/kendo-ui/content/shared/icons";
+        var baseUrl = "https://demos.telerik.com/kendo-ui/content/shared/icons";
         $("#toolbar").kendoToolBar({
           items: [
               { type: "button", text: "foo", imageUrl: "/sports/snowboarding.png" },
@@ -780,7 +781,7 @@ If set, the ToolBar will render an image with the specified URL in the menu butt
     <div id="toolbar"></div>
 
     <script>
-        var baseUrl = "http://demos.telerik.com/kendo-ui/content/shared/icons";
+        var baseUrl = "https://demos.telerik.com/kendo-ui/content/shared/icons";
         $("#toolbar").kendoToolBar({
             items: [
             {

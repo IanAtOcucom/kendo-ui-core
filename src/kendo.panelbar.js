@@ -1,5 +1,5 @@
 (function(f, define){
-    define([ "./kendo.core" ], f);
+    define([ "./kendo.data" ], f);
 })(function(){
 
 var __meta__ = { // jshint ignore:line
@@ -7,7 +7,7 @@ var __meta__ = { // jshint ignore:line
     name: "PanelBar",
     category: "web",
     description: "The PanelBar widget displays hierarchical data as a multi-level expandable panel bar.",
-    depends: [ "core", "data.odata" ]
+    depends: [ "core", "data", "data.odata" ]
 };
 
 (function($, undefined) {
@@ -139,6 +139,9 @@ var __meta__ = { // jshint ignore:line
     },
     groupAttributes: function(group) {
         return group.expanded !== true ? " style='display:none'" : "";
+    },
+    ariaHidden: function(group){
+        return group.expanded !== true;
     },
     groupCssClass: function() {
         return "k-group k-panel";
@@ -360,7 +363,7 @@ var __meta__ = { // jshint ignore:line
                     "<div role='region' class='k-content'#= contentAttributes(data) #>#= content(item) #</div>"
                 ),
                 group: template(
-                    "<ul role='group' aria-hidden='true' class='#= groupCssClass(group) #'#= groupAttributes(group) #>" +
+                    "<ul role='group' aria-hidden='#= ariaHidden(group) #' class='#= groupCssClass(group) #'#= groupAttributes(group) #>" +
                         "#= renderItems(data) #" +
                     "</ul>"
                 ),
@@ -861,7 +864,7 @@ var __meta__ = { // jshint ignore:line
                     var currentNode = that.findByUid(items[0].uid);
 
                     if (!currentNode.hasClass(DISABLEDCLASS)) {
-                        that.select(currentNode);
+                        that.select(currentNode, true);
                     }
                 }else{
                     that.clearSelection();
@@ -939,7 +942,7 @@ var __meta__ = { // jshint ignore:line
             return dataSource && dataSource.getByUid(uid);
        },
 
-       select: function (element) {
+       select: function (element, skipChange) {
            var that = this;
 
             if (element === undefined) {
@@ -960,9 +963,7 @@ var __meta__ = { // jshint ignore:line
                             return that;
                         }
 
-                        if (!that._triggerEvent(SELECT, item)) {
-                            that._updateSelected(link);
-                        }
+                        that._updateSelected(link, skipChange);
                     });
             }
 
@@ -1240,8 +1241,14 @@ var __meta__ = { // jshint ignore:line
                     var dataItem = that.dataItem(referenceItem);
                     if (dataItem) {
                         dataItem.hasChildren = true;
+                        referenceItem
+                            .attr(ARIA_EXPANDED, dataItem.expanded)
+                            .not("." + ACTIVECLASS)
+                            .children("ul")
+                            .attr(ARIA_HIDDEN, !dataItem.expanded);
+                    }else{
+                        referenceItem.attr(ARIA_EXPANDED, false);
                     }
-                    referenceItem.attr(ARIA_EXPANDED, false);
                 }
             } else {
                 if (typeof item == "string" && item.charAt(0) != "<") {
@@ -1270,7 +1277,7 @@ var __meta__ = { // jshint ignore:line
 
         _updateClasses: function() {
             var that = this,
-                panels, items;
+                panels, items, expanded, panelsParent, dataItem;
 
             panels = that.element
                          .find("li > ul")
@@ -1278,11 +1285,15 @@ var __meta__ = { // jshint ignore:line
                          .addClass("k-group k-panel")
                          .attr("role", "group");
 
+            panelsParent = panels.parent();
+            dataItem = that.dataItem(panelsParent);
+            expanded = (dataItem && dataItem.expanded) || false;
+
             panels.parent()
-                  .attr(ARIA_EXPANDED, false)
+                  .attr(ARIA_EXPANDED, expanded)
                   .not("." + ACTIVECLASS)
                   .children("ul")
-                  .attr(ARIA_HIDDEN, true)
+                  .attr(ARIA_HIDDEN, !expanded)
                   .hide();
 
             items = that.element.add(panels).children();
@@ -1400,7 +1411,7 @@ var __meta__ = { // jshint ignore:line
 
             var wrapper = item.children(".k-group,.k-content");
             var dataItem = this.dataItem(item);
-            
+
             if (!wrapper.length && ((that.options.loadOnDemand && dataItem && dataItem.hasChildren) ||
              this._hasChildItems(item) || item.content || item.contentUrl)) {
                 wrapper =  that._addGroupElement(item);
@@ -1428,7 +1439,7 @@ var __meta__ = { // jshint ignore:line
                     return prevent;
                 }
             }
-            
+
             if (contents.length) {
                 var visibility = contents.is(VISIBLE);
 
@@ -1442,7 +1453,7 @@ var __meta__ = { // jshint ignore:line
         _hasChildItems: function (item) {
             return (item.items && item.items.length > 0) || item.hasChildren;
         },
-        
+
         _toggleItem: function (element, isVisible, expanded) {
             var that = this,
                 childGroup = element.find(GROUPS),
@@ -1455,11 +1466,11 @@ var __meta__ = { // jshint ignore:line
 
             if (dataItem && !expanded) {
                 dataItem.set("expanded", !isVisible);
-                prevent = dataItem.hasChildren;
+                prevent = dataItem.hasChildren || !!dataItem.content || !!dataItem.contentUrl;
                 return prevent;
             }
 
-             if (dataItem && (!expanded || expanded === "true") &&  !loaded && !dataItem.content) {
+             if (dataItem && (!expanded || expanded === "true") &&  !loaded && !dataItem.content && !dataItem.contentUrl) {
                  if (that.options.loadOnDemand) {
                      this._progress(element, true);
                  }
@@ -1494,27 +1505,30 @@ var __meta__ = { // jshint ignore:line
             var that = this,
                 animationSettings = that.options.animation,
                 animation = animationSettings.expand,
-                collapse = extend({}, animationSettings.collapse),
-                hasCollapseAnimation = collapse && "effects" in collapse;
+                hasCollapseAnimation = animationSettings.collapse && "effects" in animationSettings.collapse,
+                collapse = extend({}, animationSettings.expand, animationSettings.collapse);
+
+            if (!hasCollapseAnimation) {
+                collapse = extend(collapse, {reverse: true});
+            }
 
             if (element.is(VISIBLE) != visibility) {
                 that._animating = false;
                 return;
             }
 
+            element.attr(ARIA_HIDDEN, !!visibility);
+
             element.parent()
                 .attr(ARIA_EXPANDED, !visibility)
-                .attr(ARIA_HIDDEN, visibility)
                 .toggleClass(ACTIVECLASS, !visibility)
-                .find("> .k-link > .k-panelbar-collapse, .k-panelbar-expand")
+                .find("> .k-link > .k-panelbar-collapse,> .k-link > .k-panelbar-expand")
                     .toggleClass("k-i-arrow-n", !visibility)
                     .toggleClass("k-panelbar-collapse", !visibility)
                     .toggleClass("k-i-arrow-s", visibility)
                     .toggleClass("k-panelbar-expand", visibility);
-
             if (visibility) {
-                animation = extend( hasCollapseAnimation ? collapse
-                    : extend({ reverse: true }, animation), { hide: true });
+                animation = extend(collapse, { hide: true });
 
                 animation.complete = function() {
                     that._animationCallback();
@@ -1642,7 +1656,7 @@ var __meta__ = { // jshint ignore:line
             return that.trigger(eventName, { item: element[0] });
         },
 
-        _updateSelected: function(link) {
+        _updateSelected: function(link, skipChange) {
             var that = this,
                 element = that.element,
                 item = link.parent(ITEM),
@@ -1665,7 +1679,9 @@ var __meta__ = { // jshint ignore:line
                  dataItem.set("selected", true);
             }
 
-            that.trigger(CHANGE);
+            if(!skipChange){
+                that.trigger(CHANGE);
+            }
         },
 
         _animations: function(options) {

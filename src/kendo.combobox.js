@@ -1,5 +1,5 @@
 (function(f, define){
-    define([ "./kendo.list", "./kendo.mobile.scroller" ], f);
+    define([ "./kendo.list", "./kendo.mobile.scroller", "./kendo.virtuallist" ], f);
 })(function(){
 
 var __meta__ = { // jshint ignore:line
@@ -115,6 +115,7 @@ var __meta__ = { // jshint ignore:line
             }
 
             kendo.notify(that);
+            that._toggleCloseVisibility();
         },
 
         options: {
@@ -204,6 +205,7 @@ var __meta__ = { // jshint ignore:line
             }
 
             Select.fn._change.call(that);
+            that._toggleCloseVisibility();
         },
 
         _focusHandler: function() {
@@ -428,13 +430,16 @@ var __meta__ = { // jshint ignore:line
 
             var data = that.dataSource.flatView();
             var skip = that.listView.skip();
+            var length = data.length;
+            var groupsLength = that.dataSource._group ? that.dataSource._group.length : 0;
             var isFirstPage = skip === undefined || skip === 0;
 
             that._presetValue = false;
 
             that._renderFooter();
             that._renderNoData();
-            that._toggleNoData(!data.length);
+            that._toggleNoData(!length);
+            that._toggleHeader(!!groupsLength && !!length);
 
             that._resizePopup();
 
@@ -536,7 +541,7 @@ var __meta__ = { // jshint ignore:line
 
                 this.listView.focus(-1);
             } else {
-                if (dataItem) {
+                if (dataItem || dataItem === 0) {
                     value = this._dataValue(dataItem);
                     text = this._text(dataItem);
                 }
@@ -546,15 +551,45 @@ var __meta__ = { // jshint ignore:line
                 }
             }
 
-            this._prev = this.input[0].value = text;
+            this._setDomInputValue(text);
             this._accessor(value !== undefined ? value : text, idx);
 
             this._placeholder();
             this._triggerCascade();
         },
 
+        _setDomInputValue: function(text){
+            var that = this;
+            var currentCaret = caret(this.input);
+            var caretStart;
+
+            if(currentCaret && currentCaret.length){
+                caretStart = currentCaret[0];
+            }
+
+            this._prev = this.input[0].value = text;
+
+            if(caretStart && this.selectedIndex === -1){
+                var mobile = support.mobileOS;
+                if(mobile.wp || mobile.android) {// without the timeout the caret is at the end of the input
+                    setTimeout(function() { that.input[0].setSelectionRange(caretStart, caretStart); }, 0);
+                }
+                else {
+                    this.input[0].setSelectionRange(caretStart, caretStart);
+                }
+            }
+        },
+
         refresh: function() {
             this.listView.refresh();
+        },
+
+        _toggleCloseVisibility: function() {
+            if (this.text()) {
+                this._showClear();
+            } else {
+                this._hideClear();
+            }
         },
 
         suggest: function(word) {
@@ -632,14 +667,13 @@ var __meta__ = { // jshint ignore:line
                 }
             }
 
-            if (ignoreCase) {
+            if (ignoreCase && !that.listView.value().length) {
                 loweredText = loweredText.toLowerCase();
             }
 
             that._select(function(data) {
                 data = that._text(data);
-
-                if (ignoreCase) {
+                if (ignoreCase && !that.listView.value().length) {
                     data = (data + "").toLowerCase();
                 }
 
@@ -868,8 +902,14 @@ var __meta__ = { // jshint ignore:line
             clearTimeout(that._typingTimeout);
             that._typingTimeout = null;
 
-            if (key != keys.TAB && !that._move(e)) {
+            if (key === keys.HOME) {
+                that._firstItem();
+            } else if (key === keys.END) {
+                that._lastItem();
+            } else if (key != keys.TAB && !that._move(e)) {
                that._search();
+            } else if (key === keys.ESC && !that.popup.visible()) {
+                that._clearValue();
             }
         },
 
@@ -922,6 +962,7 @@ var __meta__ = { // jshint ignore:line
                     }
 
                     that.search(value);
+                    that._toggleCloseVisibility();
                 }
 
                 that._typingTimeout = null;
@@ -975,6 +1016,7 @@ var __meta__ = { // jshint ignore:line
 
             this._initialIndex = null;
             this._presetValue = true;
+            this._toggleCloseVisibility();
         }
     });
 

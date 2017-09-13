@@ -2,6 +2,7 @@
 title: Sparkline
 page_title: Configuration, methods and events of Kendo UI DataViz Sparkline
 description: Learn how to configure Kendo UI Javascript sparkline widget in a few easy steps, use and change methods and events.
+res_type: api
 ---
 
 # kendo.dataviz.ui.Sparkline
@@ -3509,7 +3510,22 @@ Template variables:
 
 ### theme `String`
 
-Sets Chart theme. Available themes: default, blueOpal, black.
+The sparkline theme. This can be either a built-in theme or "sass".
+When set to "sass" the sparkline will read the variables from the [Sass-based themes]({% slug sassbasedthemes_kendoui %}).
+
+The supported values are:
+
+* "sass" - special value, see notes
+* "black"
+* "blueopal"
+* "bootstrap"
+* "default"
+* "highcontrast"
+* "metro"
+* "metroblack"
+* "moonlight"
+* "silver"
+* "uniform"
 
 ### tooltip `Object`
 

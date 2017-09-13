@@ -1019,7 +1019,9 @@ function pad(number, digits, end) {
                 groupSize = newGroupSize !== undefined ? newGroupSize : groupSize;
 
                 if (groupSize === 0) {
-                    parts.push(integer.substring(0, idx));
+                    if (idx > 0) {
+                        parts.push(integer.substring(0, idx));
+                    }
                     break;
                 }
             }
@@ -1168,7 +1170,7 @@ function pad(number, digits, end) {
         return newLocalInfo;
     }
 
-    function parseExact(value, format, culture) {
+    function parseExact(value, format, culture, strict) {
         if (!value) {
             return null;
         }
@@ -1425,6 +1427,12 @@ function pad(number, digits, end) {
             }
         }
 
+        // if more characters follow, assume wrong format
+        // https://github.com/telerik/kendo-ui-core/issues/3476
+        if (strict && !/^\s*$/.test(value.substr(valueIdx))) {
+            return null;
+        }
+
         hasTime = hours !== null || minutes !== null || seconds || null;
 
         if (year === null && month === null && day === null && hasTime) {
@@ -1497,7 +1505,7 @@ function pad(number, digits, end) {
         return formats;
     }
 
-    kendo.parseDate = function(value, formats, culture) {
+    function internalParseDate(value, formats, culture, strict) {
         if (objectToString.call(value) === "[object Date]") {
             return value;
         }
@@ -1535,13 +1543,21 @@ function pad(number, digits, end) {
         length = formats.length;
 
         for (; idx < length; idx++) {
-            date = parseExact(value, formats[idx], culture);
+            date = parseExact(value, formats[idx], culture, strict);
             if (date) {
                 return date;
             }
         }
 
         return date;
+    }
+
+    kendo.parseDate = function(value, formats, culture) {
+        return internalParseDate(value, formats, culture, false);
+    };
+
+    kendo.parseExactDate = function(value, formats, culture) {
+        return internalParseDate(value, formats, culture, true);
     };
 
     kendo.parseInt = function(value, culture) {
@@ -1648,7 +1664,7 @@ function pad(number, digits, end) {
 
             percentage = percentWidth || percentHeight;
 
-            if (!percentWidth && (!autosize || (autosize && width))) { width = outerWidth(element); }
+            if (!percentWidth && (!autosize || (autosize && width))) { width = autosize ? outerWidth(element) + 1 : outerWidth(element); }
             if (!percentHeight && (!autosize || (autosize && height))) { height = outerHeight(element); }
 
             element.wrap(
@@ -1673,14 +1689,17 @@ function pad(number, digits, end) {
                 wrapperStyle = wrapper[0].style;
 
             if (wrapper.is(":hidden")) {
-                wrapper.show();
+                wrapper.css({
+                    display: "",
+                    position: ""
+                });
             }
 
             percentage = percentRegExp.test(wrapperStyle.width) || percentRegExp.test(wrapperStyle.height);
 
             if (!percentage) {
                 wrapper.css({
-                    width: outerWidth(element),
+                    width: autosize ? outerWidth(element) + 1 : outerWidth(element),
                     height: outerHeight(element),
                     boxSizing: "content-box",
                     mozBoxSizing: "content-box",
@@ -2256,7 +2275,8 @@ function pad(number, digits, end) {
         // IE10 touch zoom is living in a separate viewport
         if (support.browser.msie && (support.pointers || support.msPointers) && !positioned) {
             var sign = support.isRtl(element) ? 1 : -1;
-            result.top -= (window.pageYOffset + (sign * document.documentElement.scrollTop));
+
+            result.top -= (window.pageYOffset - (document.documentElement.scrollTop));
             result.left -= (window.pageXOffset + (sign * document.documentElement.scrollLeft));
         }
 
@@ -2832,7 +2852,7 @@ function pad(number, digits, end) {
 
     var templateRegExp = /template$/i,
         jsonRegExp = /^\s*(?:\{(?:.|\r\n|\n)*\}|\[(?:.|\r\n|\n)*\])\s*$/,
-        jsonFormatRegExp = /^\{(\d+)(:[^\}]+)?\}|^\[[A-Za-z_]*\]$/,
+        jsonFormatRegExp = /^\{(\d+)(:[^\}]+)?\}|^\[[A-Za-z_]+\]$/,
         dashRegExp = /([A-Z])/g;
 
     function parseOption(element, option) {
@@ -3053,11 +3073,20 @@ function pad(number, digits, end) {
         Widget: Widget,
         DataBoundWidget: DataBoundWidget,
         roles: {},
-        progress: function(container, toggle) {
+        progress: function(container, toggle, options) {
             var mask = container.find(".k-loading-mask"),
                 support = kendo.support,
                 browser = support.browser,
-                isRtl, leftRight, webkitCorrection, containerScrollLeft;
+                isRtl, leftRight, webkitCorrection, containerScrollLeft, cssClass;
+
+                options = $.extend({}, {
+                    width: "100%",
+                    height: "100%",
+                    top: container.scrollTop(),
+                    opacity: false
+                }, options);
+
+                cssClass = options.opacity ? 'k-loading-mask k-opaque' : 'k-loading-mask';
 
             if (toggle) {
                 if (!mask.length) {
@@ -3066,9 +3095,9 @@ function pad(number, digits, end) {
                     containerScrollLeft = container.scrollLeft();
                     webkitCorrection = browser.webkit ? (!isRtl ? 0 : container[0].scrollWidth - container.width() - 2 * containerScrollLeft) : 0;
 
-                    mask = $("<div class='k-loading-mask'><span class='k-loading-text'>" + kendo.ui.progress.messages.loading + "</span><div class='k-loading-image'/><div class='k-loading-color'/></div>")
-                        .width("100%").height("100%")
-                        .css("top", container.scrollTop())
+                    mask = $(kendo.format("<div class='{0}'><span class='k-loading-text'>{1}</span><div class='k-loading-image'/><div class='k-loading-color'/></div>", cssClass, kendo.ui.progress.messages.loading))
+                        .width(options.width).height(options.height)
+                        .css("top", options.top)
                         .css(leftRight, Math.abs(containerScrollLeft) + webkitCorrection)
                         .prependTo(container);
                 }
@@ -3718,6 +3747,9 @@ function pad(number, digits, end) {
         }
 
         function convert(date, fromOffset, toOffset) {
+            var tempToOffset = toOffset;
+            var diff;
+
             if (typeof fromOffset == STRING) {
                 fromOffset = this.offset(date, fromOffset);
             }
@@ -3732,7 +3764,13 @@ function pad(number, digits, end) {
 
             var toLocalOffset = date.getTimezoneOffset();
 
-            return new Date(date.getTime() + (toLocalOffset - fromLocalOffset) * 60000);
+            if (typeof tempToOffset == STRING) {
+                tempToOffset = this.offset(date, tempToOffset);
+            }
+
+            diff = (toLocalOffset - fromLocalOffset) + (toOffset - tempToOffset);
+
+            return new Date(date.getTime() + diff * 60000);
         }
 
         function apply(date, timezone) {
@@ -3807,26 +3845,46 @@ function pad(number, digits, end) {
 
             return last;
         }
-        //returns 0 for first week
-        function weekInYear(date, weekStart){
-            var year, days;
 
-            date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-            adjustDST(date, 0);
-
-            year = date.getFullYear();
-
-            if (weekStart !== undefined) {
-                setDayOfWeek(date, weekStart, -1);
-                date.setDate(date.getDate() + 4);
-            } else {
-                date.setDate(date.getDate() + (4 - (date.getDay() || 7)));
+        function moveDateToWeekStart(date, weekStartDay) {
+            if (weekStartDay !== 1) {
+                return addDays(dayOfWeek(date, weekStartDay, -1), 4);
             }
 
-            adjustDST(date, 0);
-            days = Math.floor((date.getTime() - new Date(year, 0, 1, -6)) / 86400000);
+            return addDays(date, (4 - (date.getDay() || 7)));
+        }
+
+        function calcWeekInYear(date, weekStartDay) {
+            var firstWeekInYear = new Date(date.getFullYear(), 0, 1, -6);
+
+            var newDate = moveDateToWeekStart(date, weekStartDay);
+
+            var diffInMS = newDate.getTime() - firstWeekInYear.getTime();
+
+            var days = Math.floor(diffInMS / MS_PER_DAY);
 
             return 1 + Math.floor(days / 7);
+        }
+
+        function weekInYear(date, weekStartDay) {
+            if(weekStartDay === undefined) {
+                weekStartDay = kendo.culture().calendar.firstDay;
+            }
+
+            var prevWeekDate = addDays(date, -7);
+            var nextWeekDate = addDays(date, 7);
+
+            var weekNumber = calcWeekInYear(date, weekStartDay);
+
+            if (weekNumber === 0) {
+                return calcWeekInYear(prevWeekDate, weekStartDay) + 1;
+            }
+
+            if (weekNumber === 53 && calcWeekInYear(nextWeekDate, weekStartDay) > 1) {
+                return 1;
+            }
+
+            return weekNumber;
         }
 
         function getDate(date) {
@@ -3842,7 +3900,7 @@ function pad(number, digits, end) {
         }
 
         function getMilliseconds(date) {
-            return date.getTime() - getDate(date);
+            return toInvariantTime(date).getTime() - getDate(toInvariantTime(date));
         }
 
         function isInTimeRange(value, min, max) {
@@ -4119,7 +4177,13 @@ function pad(number, digits, end) {
             if (element.selectionStart !== undefined) {
                 if (isPosition) {
                     element.focus();
-                    element.setSelectionRange(start, end);
+                    var mobile = support.mobileOS;
+                    if(mobile.wp || mobile.android) {// without the timeout the caret is at the end of the input
+                        setTimeout(function() { element.setSelectionRange(start, end); }, 0);
+                    }
+                    else {
+                        element.setSelectionRange(start, end);
+                    }
                 } else {
                     start = [element.selectionStart, element.selectionEnd];
                 }

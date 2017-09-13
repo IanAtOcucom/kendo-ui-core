@@ -2,6 +2,7 @@
 title: TreeList
 page_title: Configuration, methods and events of Kendo UI TreeList
 description: Code examples for TreeList UI widget configuration. Learn how to use methods and which events to set once the treelist UI widget is initialized and expanded.
+res_type: api
 ---
 
 # kendo.ui.TreeList
@@ -1223,7 +1224,7 @@ If the `dataSource` option is an existing `kendo.data.DataSource` instance, the 
     var dataSource = new kendo.data.TreeListDataSource({
       transport: {
         read: {
-          url: "http://demos.telerik.com/kendo-ui/service/products",
+          url: "https://demos.telerik.com/kendo-ui/service/products",
           dataType: "jsonp"
         }
       }
@@ -1461,7 +1462,7 @@ Specifies the file name of the exported Excel file.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -1500,7 +1501,7 @@ Enables or disables column filtering in the Excel file. Not to be mistaken with 
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -1557,7 +1558,7 @@ The proxy should return the decoded file with the "Content-Disposition" header s
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2380,7 +2381,7 @@ The author of the PDF document.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2427,7 +2428,7 @@ The creator of the PDF document.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2467,7 +2468,7 @@ The date when the PDF document is created. Defaults to `new Date()`.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2507,7 +2508,7 @@ Specifies the file name of the exported PDF file.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2551,7 +2552,7 @@ Specifies the keywords of the exported PDF file.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2591,7 +2592,7 @@ Set to `true` to reverse the paper dimensions such that width is the larger edge
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2637,7 +2638,7 @@ units are "mm", "cm", "in" and "pt" (default).
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2703,7 +2704,7 @@ Supported values:
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2757,7 +2758,7 @@ The proxy should return the decoded file with the "Content-Disposition" header s
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2802,7 +2803,7 @@ the proxy should set the "Content-Disposition" header to `inline; filename="<fil
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2842,7 +2843,7 @@ Sets the subject of the PDF file.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -2882,7 +2883,7 @@ Sets the title of the PDF file.
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
+              url: "https://demos.telerik.com/kendo-ui/service/EmployeeDirectory/All",
               dataType: "jsonp"
             }
           },
@@ -3175,6 +3176,31 @@ The text displayed by the command button. If not set the [name](#configuration-t
         });
     </script>
 
+## Fields
+
+### columns `Array`
+
+The columns of the treelist initialized from the [columns](#configuration-columns) option. Every item from the `columns` array has the same fields as the corresponding [columns](#configuration-columns) option.
+
+#### Example - iterate the grid columns
+    <div id="treelist"></div>
+	<script>
+		$("#treelist").kendoTreeList({
+		  columns: [
+		    { field: "name" },
+		    { field: "age" }
+		  ],
+		  dataSource: [
+		    { name: "Jane Doe", age: 30 },
+		    { name: "John Doe", age: 33 }
+		  ]
+		});
+		var treelist = $("#treelist").data("kendoTreeList");
+		for (var i = 0; i < treelist.columns.length; i++) {
+		  console.log(treelist.columns[i].field); // displays "name" and then "age"
+		}
+	</script>
+
 ## Methods
 
 ### addRow
@@ -3356,7 +3382,17 @@ Clears the currently selected table rows or cells (depending on the current sele
 
 ### collapse
 
-This method collapse the row.
+This method collapses the row passed as a parameter.
+
+#### Parameters
+
+##### row `String|Element|jQuery`
+
+A string, DOM element or jQuery object which represents the table row. A string is treated as a jQuery selector.
+
+#### Returns
+
+`Promise`
 
 #### Example
 

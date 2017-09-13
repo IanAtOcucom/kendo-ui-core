@@ -20,7 +20,7 @@ The example below demonstrates how to use the Kendo UI Tooltip for the Kendo UI 
         dataSource: {
           transport: {
             read: {
-              url: "http://demos.telerik.com/kendo-ui/content/dataviz/js/population-usa.json",
+              url: "http://runner.telerik.io/fullscreen/ilerI.json",
               dataType: "json"
             }
           },
@@ -52,8 +52,6 @@ The example below demonstrates how to use the Kendo UI Tooltip for the Kendo UI 
 ```
 
 ## See Also
-
-Other articles and how-to examples on Kendo UI TreeMap:
 
 * [TreeMap JavaScript API Reference](/api/javascript/dataviz/ui/treemap)
 * [How to Set Header Items Color]({% slug howto_setheaderitemscolor_treemap %})

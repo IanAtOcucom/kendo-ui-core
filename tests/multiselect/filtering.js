@@ -278,6 +278,30 @@
         multiselect.input.focus().val("baz").keydown();
     });
 
+    asyncTest("clicking on clear button does not clear filter if minLength and enforceMinLength", 0, function() {
+        var multiselect = new MultiSelect(select, {
+            delay: 0,
+            minLength: 3,
+            enforceMinLength: true,
+            dataSource: ["foo", "bar"],
+            filter: "contains"
+        });
+
+        multiselect.dataSource.one("change", function() {
+            multiselect.one("filtering", function(e) {
+                ok(false, "should not filter on empty input and enforceMinLength");
+            });
+
+            multiselect._clear.click();
+
+            setTimeout(function() {
+                start();
+            }, 0);
+        });
+
+        multiselect.input.focus().val("baz").keydown();
+    });
+
     test("MultiSelect renders value of the custom options on filter", 3, function() {
         var multiselect = new MultiSelect(select, {
             dataTextField: "text",
@@ -665,6 +689,29 @@
         });
         multiselect.open();
 
+    });
+
+    test("autoWidth adds one pixel to avoid browser pixel rounding", function(assert) {
+        var multiselect = new MultiSelect(select, {
+            autoWidth: true,
+            animation:{
+                open: {
+                    duration:0
+                },
+                close: {
+                    duration:0
+                },
+            },
+            dataSource: {
+                data: ["Short item", "An item with really, really, really, really, really, really, really, really, really, long text","Short item"]
+            }
+        });
+
+        multiselect.open();
+        equal(multiselect.popup.element.parent(".k-animation-container").width(), multiselect.popup.element.outerWidth(true) + 1);
+        multiselect.close();
+        multiselect.open();
+        equal(multiselect.popup.element.parent(".k-animation-container").width(), multiselect.popup.element.outerWidth(true) + 1);
     });
 
     asyncTest("update popup height when no items are found", 1, function() {

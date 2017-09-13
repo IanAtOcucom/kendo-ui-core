@@ -75,6 +75,7 @@ $.extend(true, kendo.ui.Editor.prototype.options.messages,{
   "style": "Styles",
   "emptyFolder": "Empty Folder",
   "uploadFile": "Upload",
+  "overflowAnchor": "More tools",
   "orderBy": "Arrange by:",
   "orderBySize": "Size",
   "orderByName": "Name",
@@ -113,6 +114,7 @@ $.extend(true, kendo.ui.Editor.prototype.options.messages,{
   "summary": "Summary",
   "width": "Width",
   "height": "Height",
+  "units": "Units",
   "cellSpacing": "Cell Spacing",
   "cellPadding": "Cell Padding",
   "cellMargin": "Cell Margin",
@@ -361,7 +363,8 @@ $.extend(true, kendo.ui.Grid.prototype.options.messages,{
     "confirmation": "Are you sure you want to delete this record?",
     "confirmDelete": "Delete"
   },
-  "noRecords": "No records available."
+  "noRecords": "No records available.",
+  "expandCollapseColumnHeader": ""
 });
 }
 
@@ -731,13 +734,6 @@ $.extend(true, kendo.spreadsheet.messages.dialogs,{
       "typeMessage": "Type message"
     }
   },
-  "saveAsDialog": {
-    "title": "Save As...",
-    "labels": {
-      "fileName": "File name",
-      "saveAsType": "Save as type"
-    }
-  },
   "exportAsDialog": {
     "title": "Export...",
     "labels": {
@@ -809,6 +805,16 @@ $.extend(true, kendo.spreadsheet.messages.filterMenu,{
       "lt": "Is less than"
     }
   }
+});
+}
+
+if (kendo.spreadsheet && kendo.spreadsheet.messages.colorPicker) {
+kendo.spreadsheet.messages.colorPicker =
+$.extend(true, kendo.spreadsheet.messages.colorPicker,{
+  "reset": "Reset color",
+  "customColor": "Custom color...",
+  "apply": "Apply",
+  "cancel": "Cancel"
 });
 }
 
@@ -922,6 +928,23 @@ $.extend(true, kendo.ui.Slider.prototype.options,{
 });
 }
 
+/* ListBox messaages */
+
+if (kendo.ui.ListBox) {
+kendo.ui.ListBox.prototype.options.messages =
+$.extend(true, kendo.ui.ListBox.prototype.options.messages,{
+  "tools": {
+    "remove": "Delete",
+    "moveUp": "Move Up",
+    "moveDown": "Move Down",
+    "transferTo": "Transfer To",
+    "transferFrom": "Transfer From",
+    "transferAllTo": "Transfer All To",
+    "transferAllFrom": "Transfer All From"
+  }
+});
+}
+
 /* TreeList messages */
 
 if (kendo.ui.TreeList) {
@@ -976,14 +999,18 @@ $.extend(true, kendo.ui.Upload.prototype.options.localization,{
   "cancel": "Cancel",
   "retry": "Retry",
   "remove": "Remove",
+  "clearSelectedFiles": "Clear",
   "uploadSelectedFiles": "Upload files",
-  "dropFilesHere": "drop files here to upload",
+  "dropFilesHere": "Drop files here to upload",
   "statusUploading": "uploading",
   "statusUploaded": "uploaded",
   "statusWarning": "warning",
   "statusFailed": "failed",
   "headerStatusUploading": "Uploading...",
-  "headerStatusUploaded": "Done"
+  "headerStatusUploaded": "Done",
+  "invalidMaxFileSize": "File size too large.",
+  "invalidMinFileSize": "File size too small.",
+  "invalidFileExtension": "File type not allowed."
 });
 }
 
@@ -1021,6 +1048,14 @@ $.extend(true, kendo.ui.Dialog.prototype.options.localization, {
 });
 }
 
+/* Calendar */
+if (kendo.ui.Calendar) {
+kendo.ui.Calendar.prototype.options.messages =
+$.extend(true, kendo.ui.Calendar.prototype.options.messages, {
+  "weekColumnHeader": ""
+});
+}
+
 /* Alert */
 
 if (kendo.ui.Alert) {
@@ -1047,6 +1082,21 @@ $.extend(true, kendo.ui.Prompt.prototype.options.localization, {
   "okText": "OK",
   "cancel": "Cancel"
 });
+}
+
+/* DateInput */
+if (kendo.ui.DateInput) {
+  kendo.ui.DateInput.prototype.options.messages =
+    $.extend(true, kendo.ui.DateInput.prototype.options.messages, {
+      "year": "year",
+      "month": "month",
+      "day": "day",
+      "weekday": "day of the week",
+      "hour": "hours",
+      "minute": "minutes",
+      "second": "seconds",
+      "dayperiod": "AM/PM"
+    });
 }
 
 })(window.kendo.jQuery);

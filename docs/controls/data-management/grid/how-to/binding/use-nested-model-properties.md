@@ -1,14 +1,29 @@
 ---
 title: Use Nested Model Properties
 page_title: Use Nested Model Properties | Kendo UI Grid
-description: "Learn how to use use nested model properties in the Kendo UI Grid widget."
+description: "Learn how to use nested model properties in the Kendo UI Grid widget."
 previous_url: /controls/data-management/grid/how-to/use-nested-model-properties
 slug: howto_use_nested_model_properties_grid
 ---
 
 # Use Nested Model Properties
 
-The example below demonstrates how to use nested model properties. CRUD operations are not fully configured.
+When you use `from` together with CRUD operations and add new rows, you also have to define in `schema.model.fields` the original field or the sequence of nested fields which are used inside `from`.
+
+The reason is that during updates and creates, the Kendo UI DataSource tries to construct a data item object which matches the original (server-side) data-item structure. For new data items, such a structure does not exist and needs to be defined explicitly, as demonstrated in the following example.
+
+```
+    myClientField1: { from: "myServerField1.foo" },
+    myServerField1: { defaultValue: {} },
+
+    myClientField2: { from: "myServerField2[0].bar" },
+    myServerField2: { defaultValue: [{}] },
+
+    myClientField3: { from: "myServerField3.myServerField4.baz" },
+    myServerField3: { defaultValue: { myServerField4: {} } },
+```
+
+The following example demonstrates how to use nested model properties. The CRUD operations are not fully configured.
 
 ###### Example
 
@@ -47,6 +62,8 @@ The example below demonstrates how to use nested model properties. CRUD operatio
                 lname: {
                   from: "person.lname"
                 },
+                // A default value is needed for person to be defined to support additions
+                person: { defaultValue: {} },
                 bdate: {
                   type: "date",
                   from: "person.bdate"
@@ -59,6 +76,7 @@ The example below demonstrates how to use nested model properties. CRUD operatio
         editable: {
           mode: "inline"
         },
+        toolbar: ["create"],
         columns: [{
           field: "id",
           title: "ID"
@@ -82,9 +100,7 @@ The example below demonstrates how to use nested model properties. CRUD operatio
 
 ## See Also
 
-Other articles on the Kendo UI Grid and how-to examples:
-
-* [JavaScript API Reference](/api/javascript/ui/grid)
+* [JavaScript API Reference of the Grid](/api/javascript/ui/grid)
 * [How to Add Cascading DropDownList Editors]({% slug howto_add_cascading_dropdown_list_editors_grid %})
 * [How to Copy Data from Excel]({% slug howto_copy_datafrom_excel_grid %})
 * [How to Drag and Drop Rows between Grids]({% slug howto_dragand_drop_rows_between_twogrids_grid %})
@@ -98,4 +114,4 @@ Other articles on the Kendo UI Grid and how-to examples:
 * [How to Show Tooltip for Column Records]({% slug howto_show_tooltipfor_column_records_grid %})
 * [How to Update Toolbar Content Using MVVM Binding]({% slug howto_update_toolbar_content_using_mvvmbinding_grid %})
 
-For more runnable examples on the Kendo UI Grid, browse its [**How To** documentation folder]({% slug howto_create_custom_editors_grid %}).
+For more runnable examples on the Kendo UI Grid, browse its [**How To** documentation folder]({% slug howto_adjust_row_heights_template_locked_columns_grid %}).

@@ -249,6 +249,22 @@ test("search with empty input and enforceMinLength: true does not rebind items",
     equal(combobox.ul.children().length, 1);
 });
 
+test("does not rebind items when enforceMinLength: true and _clear is clicked", function() {
+    create({
+        filter: "startswith",
+        minLength: 2,
+        enforceMinLength: true
+    });
+    combobox.text("fo");
+    combobox.search("fo");
+
+    equal(combobox.ul.children().length, 1);
+
+    combobox._clear.click();
+
+    equal(combobox.ul.children().length, 1);
+});
+
 test("search with filter opens drop down if any items", function() {
     create({
         filter: "startswith"
@@ -1041,6 +1057,29 @@ test("resize popup on search when autoWidth is enabled", function(assert) {
 
 });
 
+test("autoWidth adds one pixel to avoid browser pixel rounding", function(assert) {
+    var combobox = new ComboBox(input, {
+        autoWidth: true,
+        animation:{
+            open: {
+                duration:0
+            },
+            close: {
+                duration:0
+            },
+        },
+        dataSource: {
+            data: ["Short item", "An item with really, really, really, really, really, really, really, really, really, long text","Short item"]
+        }
+    });
+
+    combobox.open();
+    equal(combobox.popup.element.parent(".k-animation-container").width(), combobox.popup.element.outerWidth(true) + 1);
+    combobox.close();
+    combobox.open();
+    equal(combobox.popup.element.parent(".k-animation-container").width(), combobox.popup.element.outerWidth(true) + 1);
+});
+
 test("keep popup opened on empty search result if noDataTemplate", 2, function(assert) {
     var combobox = new ComboBox(input, {
         animation: false,
@@ -1106,5 +1145,31 @@ test("scrolls to the matched item on open", 2, function() {
 
     ok(combobox.ul.children().eq(49).hasClass("k-state-focused"), "item is not focused");
     ok(combobox.list.children(".k-list-scroller").scrollTop() > 200, "list is not scrolled");
+});
+
+test("concat filters with the same logic operator", function() {
+    combobox = new ComboBox(input, {
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: {
+            data: [{ text: "foo", value: 1 }, { text: "bar", value: 2 }, { text: "too", value: 10 }],
+            filter: {
+                logic: "or",
+                filters: [
+                    { field: "value", operator: "eq", value: 1 },
+                    { field: "value", operator: "eq", value: 2 }
+                ]
+            }
+        },
+        filter: "contains"
+    });
+
+    combobox.search("to");
+    combobox.search("too");
+
+    var filters = combobox.dataSource.filter();
+
+    equal(filters.filters[1].filters.length, 2);
+    equal(!filters.filters[1].filters.filters, true);
 });
 })();

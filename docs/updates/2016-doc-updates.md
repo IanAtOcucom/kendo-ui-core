@@ -10,10 +10,10 @@ position: 2
 
 ## November
 
-The UI for ASP.NET MVC documentation is now split into UI for ASP.NET MVC and UI for ASP.NET Core. The domains diverged from the existing Kendo UI documentation and are hosted on the following individual websites:
+The Telerik UI for ASP.NET MVC documentation is now split into Telerik UI for ASP.NET MVC and Telerik UI for ASP.NET Core. The domains diverged from the existing Kendo UI documentation and are hosted on the following individual websites:
 
-* [UI for ASP.NET MVC](http://docs.telerik.com/aspnet-mvc/introduction)
-* [UI for ASP.NET Core](http://docs.telerik.com/aspnet-core/introduction)
+* [Telerik UI for ASP.NET MVC](http://docs.telerik.com/aspnet-mvc/introduction)
+* [Telerik UI for ASP.NET Core](http://docs.telerik.com/aspnet-core/introduction)
 
 ## August
 
@@ -192,9 +192,9 @@ The **Copyright** notice is now added.
 
 The following articles have been added:
 
-* A new troubleshooting article on Scaffolding when using the Kendo UI Scaffolder Visual Studio Extension is now available. For more information, go to [**UI for ASP.NET MVC** > **Troubleshooting** > **Scaffolding**](http://docs.telerik.com/aspnet-mvc/troubleshoot/troubleshooting-scaffolding).
+* A new troubleshooting article on Scaffolding when using the Kendo UI Scaffolder Visual Studio Extension is now available. For more information, go to [**Telerik UI for ASP.NET MVC** > **Troubleshooting** > **Scaffolding**](http://docs.telerik.com/aspnet-mvc/troubleshoot/troubleshooting-scaffolding).
 * A new troubleshooting article on Validation is now available. For more information, go to [**UI for ASP.NET MVC** > **Troubleshooting** > **Validation**](http://docs.telerik.com/aspnet-mvc/troubleshoot/troubleshooting-validation).
-* The **Globalization and Localization** article on Telerik UI for ASP.NET MVC is now split to list the two topics separately for a better navigation. The current location of them both is [**UI for ASP.NET MVC** > **Globalization**](http://docs.telerik.com/aspnet-mvc/getting-started/globalization) and [**UI for ASP.NET MVC** > **Localization**](http://docs.telerik.com/aspnet-mvc/getting-started/localization) respectively.
+* The **Globalization and Localization** article on Telerik UI for ASP.NET MVC is now split to list the two topics separately for a better navigation. The current location of them both is [**UI for ASP.NET MVC** > **Globalization**](http://docs.telerik.com/aspnet-mvc/getting-started/globalization) and [**Telerik UI for ASP.NET MVC** > **Localization**](http://docs.telerik.com/aspnet-mvc/getting-started/localization) respectively.
 
 ### Existing
 
@@ -274,7 +274,7 @@ Below are listed the Kendo UI Q1 2016 SP1 (2016.1.226) release changes in the do
 Below are listed the Kendo UI Q1 2016 release changes in documentation as compared to the Kendo UI Q3 2015 ones.
 
 * The conceptual topic documentation on Kendo UI widgets is reorganized to correspond to the structure of the [Kendo UI live demo page](http://demos.telerik.com/kendo-ui/). The articles on Kendo UI controls are now listed in the **Widgets** folder. For example, [**Widgets** > **Data Management** > **Grid** > **Overview**]({% slug overview_kendoui_grid_widget %}).
-* The new **Styles and Appearance** folder contains the combined articles on the layout and general appearance of the Kendo UI widgets that were previously referred to as Web and DataViz, such as the [**Responsive Web Design**]({% slug responsivewebdesign_integration_kendoui %}) and [**ThemeBuilder Overview**]({% slug themebuilder_overview_kendouistyling %}) help topics.
+* The new **Styles and Appearance** folder contains the combined articles on the layout and general appearance of the Kendo UI widgets that were previously referred to as Web and DataViz, such as the [**Responsive Web Design**]({% slug responsivewebdesign_integration_kendoui %}) and **ThemeBuilder Overview** help topics.
 * The recently added **Third-Party Frameworks and Utilities** folder accommodates the articles on Kendo UI integration with third-party frameworks, such as the [**TypeScript**]({% slug typescript_integration_kendoui %}) and [**RequireJS**]({% slug requirejs_integration_kendoui %}) help topics.
 * The newly created **Troubleshooting** folder holds all existing general Kendo UI issues, which are now split into topics, so that a particular issue can be much more easily located. This approach resulted in articles such as [**Performance Issues**]({% slug troubleshooting_system_memory_symptoms_kendoui %}) and [**Content Security Policy**]({% slug troubleshooting_content_security_policy_kendoui %}).
 * The new **Backwards Compatibility** folder contains all Kendo UI breaking changes now divided depending on the year of their release.

@@ -2,6 +2,7 @@
 title: Map
 page_title: Configuration, methods and events of Kendo UI DataViz Map
 description: Learn how to configure Kendo UI Javascript chart widget in a few easy steps, use and change methods and events.
+res_type: api
 ---
 
 # kendo.dataviz.ui.Map
@@ -599,7 +600,7 @@ versions, so it is advisable to always use the [iframe configuration option](#if
                 marker: {
                     tooltip: {
                           content: {
-                            url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                            url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                           },
                           width: 220,
                           height: 280
@@ -715,7 +716,7 @@ Explicitly states whether content iframe should be created.
                     tooltip: {
                           iframe: true,
                           content: {
-                            url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                            url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                           },
                           width: 220,
                           height: 280
@@ -2592,7 +2593,7 @@ versions, so it is advisable to always use the [iframe configuration option](#if
                 type: "marker",
                 tooltip: {
                       content: {
-                        url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                        url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                       },
                       width: 220,
                       height: 280
@@ -2694,7 +2695,7 @@ Explicitly states whether content iframe should be created.
                 tooltip: {
                       iframe: true,
                       content: {
-                        url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                        url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                       },
                       width: 220,
                       height: 280
@@ -3761,7 +3762,7 @@ versions, so it is advisable to always use the [iframe configuration option](#if
             markerDefaults: {
                 tooltip: {
                       content: {
-                        url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                        url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                       },
                       width: 220,
                       height: 280
@@ -3852,7 +3853,7 @@ Explicitly states whether content iframe should be created.
                 tooltip: {
                       iframe: true,
                       content: {
-                        url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                        url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                       },
                       width: 220,
                       height: 280
@@ -4371,7 +4372,7 @@ versions, so it is advisable to always use the [iframe configuration option](#if
                 location: [42, 27],
                 tooltip: {
                       content: {
-                        url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                        url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                       },
                       width: 220,
                       height: 280
@@ -4450,7 +4451,7 @@ Explicitly states whether content iframe should be created.
                 tooltip: {
                       iframe: true,
                       content: {
-                        url: "http://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
+                        url: "https://demos.telerik.com/kendo-ui/content/web/tooltip/ajax/ajaxContent3.html"
                       },
                       width: 220,
                       height: 280

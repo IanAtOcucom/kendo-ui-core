@@ -61,7 +61,7 @@ The following example demonstrates how to dynamically set the DataSource in a Ke
             type: "odata",
             serverFiltering: true,
             transport: {
-              read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Categories"
+              read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Categories"
             }
           }
         }).data("kendoDropDownList");
@@ -84,7 +84,7 @@ The following example demonstrates how to dynamically set the DataSource in a Ke
             type: "odata",
             serverFiltering: true,
             transport: {
-              read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Order_Details?$expand=Order"
+              read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Order_Details?$expand=Order"
             }
           }
         }).data("kendoDropDownList");
@@ -94,7 +94,7 @@ The following example demonstrates how to dynamically set the DataSource in a Ke
             type: "odata",
             serverFiltering: true,
             transport: {
-              read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Products"
+              read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Products"
             }
           });
         });
@@ -104,8 +104,6 @@ The following example demonstrates how to dynamically set the DataSource in a Ke
 ```
 
 ## See Also
-
-Other articles on the Kendo UI DropDownList:
 
 * [DropDownList JavaScript API Reference](/api/javascript/ui/dropdownlist)
 * [How to Automatically Adjust the Width of a DropDownList]({% slug howto_automatically_adjust_width_dropdownlist %})
@@ -117,4 +115,4 @@ Other articles on the Kendo UI DropDownList:
 * [How to Update MVVM Bound Models on Load]({% slug howto_update_mvvm_model_onload_dropdownlist %})
 * [How to Validate DropDownLists by Using Required Attributes]({% slug howto_validate_using_required_attributes_dropdownlist %})
 
-For more runnable examples on the Kendo UI DropDownList, browse its [**How To** documentation folder]({% slug howto_cascade_withngrepeat_distinct_values_dropdownlist %}).
+For more runnable examples on the Kendo UI DropDownList, browse its [**How To** documentation folder]({% slug howto_bindobjectstongmodel_dropdownlist %}).

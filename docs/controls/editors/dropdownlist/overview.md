@@ -10,15 +10,14 @@ position: 1
 
 The [Kendo UI DropDownList widget](http://demos.telerik.com/kendo-ui/dropdownlist/index) displays a list of values and allows for a single selection from the list.
 
-The user input is restricted within the predefined options.
-
-To apply a keyboard input, use the [Kendo UI ComboBox control]({% slug overview_kendoui_combobox_widget %}).
+The user input is restricted within the predefined options. 
+To apply a keyboard input, use the [Kendo UI ComboBox]({% slug overview_kendoui_combobox_widget %}).
 
 ## Getting Started
 
 ### Initialize the DropDownList
 
-The Kendo UI DropDownList widget can be initialized in 3 ways:
+You can initialize the Kendo UI DropDownList widget in any of the following ways:
 
 1. By using the `<option>` tag of an existing `<select>` element with defined data items.
 2. By binding the widget to a local data array and using the `<input>` or the `<select>` element.
@@ -28,7 +27,7 @@ The DropDownList looks and operates consistently regardless of the initializatio
 
 > **Important**
 > * Verify that you create the DropDownList within a `$(document).ready()` statement because the widget has to be initialized after the DOM is fully loaded.
-> * The widget copies any styles and CSS classes from the input element to the wrapper element and visible input.
+> * The widget copies any styles and CSS classes from the `input` element to the `wrapper` element and visible input.
 
 #### Use option Tags of Existing select Elements
 
@@ -90,7 +89,7 @@ The following example demonstrates how to initialize the DropDownList by using t
                 dataSource: {
                     type: "odata", // specifies data protocol
                     transport: {
-                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                        read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
                     }
                 }
             });
@@ -100,6 +99,8 @@ The following example demonstrates how to initialize the DropDownList by using t
 ## Templates
 
 The DropDownList uses [Kendo UI templates](/framework/templates/overview) to provide full control over the way an item, a selected value, or a pop-up header is rendered.
+
+For more information on the capabilities and syntax of the templates, refer to the [documentation]({% slug overview_kendoui_templatescomponent %}).
 
 ### Item Templates
 
@@ -126,7 +127,7 @@ The following example demonstrates how to define an item template.
                     transport: {
                         read: {
                             dataType: "jsonp",
-                            url: "http://demos.telerik.com/kendo-ui/service/Customers"
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
                         }
                     }
                 }
@@ -163,7 +164,7 @@ The following example demonstrates how to define a value template.
                     transport: {
                         read: {
                             dataType: "jsonp",
-                            url: "http://demos.telerik.com/kendo-ui/service/Customers"
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
                         }
                     }
                 }
@@ -196,7 +197,7 @@ The following example demonstrates how to define a header template.
                     transport: {
                         read: {
                             dataType: "jsonp",
-                            url: "http://demos.telerik.com/kendo-ui/service/Customers"
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
                         }
                     }
                 }
@@ -229,7 +230,7 @@ The following example demonstrates how to define a footer template.
                     transport: {
                         read: {
                             dataType: "jsonp",
-                            url: "http://demos.telerik.com/kendo-ui/service/Customers"
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
                         }
                     }
                 }
@@ -266,7 +267,7 @@ The following example demonstrates how to define a `noDataTemplate` template.
                     transport: {
                         read: {
                             dataType: "jsonp",
-                            url: "http://demos.telerik.com/kendo-ui/service/Customers"
+                            url: "https://demos.telerik.com/kendo-ui/service/Customers"
                         }
                     }
                 }

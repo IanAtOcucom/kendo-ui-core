@@ -2,6 +2,7 @@
 title: DateTimePicker
 page_title: Configuration, methods and events of Kendo UI DateTimePicker
 description: Learn how to configure the UI DateTimePicker widget. Use methods to open, close, remove, enable, disable, set maximum or minimum values and more.
+res_type: api
 ---
 
 # kendo.ui.DateTimePicker
@@ -132,6 +133,19 @@ The duration of the open animation in milliseconds.
     <script>
     $("#datetimepicker").kendoDateTimePicker({
         culture: "de-DE"
+    });
+    </script>
+
+### dateInput `Boolean`*(default: false)*
+
+ Specifies if the DateTimePicker will use DateInput for editing value
+
+#### Example
+
+    <input id="datetimepicker" />
+    <script>
+    $("#datetimepicker").DateTimePicker({
+        dateInput: true
     });
     </script>
 
@@ -366,12 +380,12 @@ note that a check for an empty `date` is needed, as the widget can work with a n
     </style>
     <body>
 
-    <div id="calendar"></div>
+    <input id="datetimepicker1" />
     <script id="week-template" type="text/x-kendo-template">
        <a class="italic">#= data.weekNumber #</a>
     </script>
     <script>
-      $("#calendar").kendoCalendar({
+      $("#datetimepicker1").kendoDateTimePicker({
         weekNumber: true,
         month: {
           weekNumber: $("#week-template").html()
@@ -411,9 +425,9 @@ If set to `true` a week of the year will be shown on the left side of the calend
 
 #### Example - enable the week of the year option
 
-    <div id="calendar"></div>
+    <input id="datetimepicker1" />
     <script>
-        $("#calendar").kendoCalendar({
+        $("#datetimepicker1").kendoDateTimePicker({
             weekNumber: true
         });
     </script>

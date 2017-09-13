@@ -2,6 +2,7 @@
 title: ContextMenu
 page_title: Configuration, methods and events of Kendo UI ContextMenu
 description: How to configure all animations in ContextMenu UI widget, enable and disable, remove specified items and use code examples for all methods and events supported.
+res_type: api
 ---
 
 # kendo.ui.ContextMenu
@@ -342,6 +343,38 @@ The DOM element to which the ContextMenu will be appended. The element needs to 
             target: "#target",
             closeOnClick: false
         });
+    </script>
+
+### copyAnchorStyles `Boolean`*(default: true)*
+
+ Copies and uses the styles from the anchor.
+
+#### Example
+
+    <span class="k-icon k-i-filter" id="span-target"></span>
+    <ul id="context-menu-span">
+      <li>Item 1
+        <ul>
+          <li>Sub Item 1</li>
+          <li>Sub Item 2</li>
+          <li>Sub Item 3</li>
+        </ul>
+      </li>
+      <li>Item 2
+        <ul>
+          <li>Sub Item 1</li>
+          <li>Sub Item 2</li>
+          <li>Sub Item 3</li>
+        </ul>
+      </li>
+    </ul>
+    <script>
+
+      $("#context-menu-span").kendoContextMenu({
+        target: "#span-target",
+        alignToAnchor: true,
+        copyAnchorStyles: false
+      });
     </script>
 
 ### dataSource `Object|Array`

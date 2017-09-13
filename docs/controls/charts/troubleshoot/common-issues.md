@@ -15,7 +15,7 @@ This page provides solutions for common problems related to the Kendo UI Charts.
 
 ### Chart Graphics Do Not Render in Internet Explorer
 
-**Figure 1. Chart in the Internet Explorer with its graphics failing to render**
+**Figure 1: Chart in the Internet Explorer with its graphics failing to render**
 
 ![Chart in IE](/styles-and-layout/chart-ie.png)
 
@@ -27,7 +27,7 @@ This page provides solutions for common problems related to the Kendo UI Charts.
 
 Select **Internet Options** > **Security** > **Internet** (or **Local intranet**) > **Custom Level**  and enable **Binary and script behaviors** by ticking the **Enable** radio button.
 
-**Figure 2. Options and settings to apply to render the chart graphics**
+**Figure 2: Options and settings to apply to render the chart graphics**
 
 ![IEscript behaviors](/styles-and-layout/chart-ie-script-behaviors.png)
 
@@ -92,7 +92,7 @@ The example below demonstrates how to embed fonts in exported PDF.
      $("#chart").kendoChart({
         pdf: {
             fileName: "Kendo UI Chart Export.pdf",
-            proxyURL: "http://demos.telerik.com/kendo-ui/service/export"
+            proxyURL: "https://demos.telerik.com/kendo-ui/service/export"
         },
         title: {
             text: "Gross domestic product growth \n /GDP annual %/",

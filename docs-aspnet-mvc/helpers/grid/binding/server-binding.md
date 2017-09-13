@@ -25,7 +25,7 @@ There are a few ways to do this:
 
 ### Bind to the View Model
 
-The examples below demonstrate how to bind to the view model.
+The following example demonstrate how to bind to the view model.
 
 ###### Example
 
@@ -76,7 +76,7 @@ To download the Visual Studio Project, refer to [this GitHub repository](https:/
 
 ### Use ViewData or ViewBag Items Binding
 
-The example below demonstrates how to bind to an item from the `ViewData` or `ViewBag`.
+The following example demonstrates how to bind to an item from the `ViewData` or `ViewBag`.
 
 ###### Example
 
@@ -120,7 +120,7 @@ The example below demonstrates how to bind to an item from the `ViewData` or `Vi
 
 ### Apply the BindTo Method
 
-The example below demonstrates how to use the `BindTo` method.
+The following example demonstrates how to use the `BindTo` method.
 
 ```tab-Action
 
@@ -178,7 +178,7 @@ For more information on how a typical URL would look like, refer to [this locati
 
 Sometimes the action method, which renders the view containing the Grid, may need additional data.
 
-The example below demonstrates how to pass them.
+The following example demonstrates how to pass them.
 
 ###### Example
 
@@ -246,7 +246,7 @@ Other articles on the Kendo UI Grid for ASP.NET MVC:
 * [Editing of the Grid HtmlHelper]({% slug ajaxediting_grid_aspnetmvc %})
 * [Templating of the Grid HtmlHelper]({% slug clientdetailtemplate_grid_aspnetmvc %})
 * [Troubleshooting of the Grid HtmlHelper]({% slug troubleshoot_gridhelper_aspnetmvc %})
-* [API Reference of the Grid HtmlHelper](/api/Kendo.Mvc.UI.Fluent/GridBuilder)
+* [API Reference of the Grid HtmlHelper](http://docs.telerik.com/aspnet-mvc/api/Kendo.Mvc.UI.Fluent/GridBuilder)
 * [Overview of the Kendo UI Grid Widget](http://docs.telerik.com/kendo-ui/controls/data-management/grid/overview)
 
 Articles on Telerik UI for ASP.NET MVC:
@@ -254,7 +254,7 @@ Articles on Telerik UI for ASP.NET MVC:
 * [Overview of Telerik UI for ASP.NET MVC]({% slug overview_aspnetmvc %})
 * [Fundamentals of Telerik UI for ASP.NET MVC]({% slug fundamentals_aspnetmvc %})
 * [Scaffolding in Telerik UI for ASP.NET MVC]({% slug scaffolding_aspnetmvc %})
-* [Telerik UI for ASP.NET MVC API Reference Folder](/api/Kendo.Mvc/AggregateFunction)
+* [Telerik UI for ASP.NET MVC API Reference Folder](http://docs.telerik.com/kendo-uiapi/Kendo.Mvc/AggregateFunction)
 * [Telerik UI for ASP.NET MVC HtmlHelpers Folder]({% slug overview_barcodehelper_aspnetmvc %})
 * [Tutorials on Telerik UI for ASP.NET MVC]({% slug overview_timeefficiencyapp_aspnetmvc6 %})
 * [Telerik UI for ASP.NET MVC Troubleshooting]({% slug troubleshooting_aspnetmvc %})

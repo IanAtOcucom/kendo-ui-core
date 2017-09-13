@@ -129,15 +129,20 @@ function navigationTemplate(root) {
             url = url.replace(".html", "");
         }
 
+        var icon = item.isNew === true ? '<span class="new-navigation-item">NEW</span>' : '';
         if (url.indexOf("#") < 0) {
             while (item = item.parentNode()) {
                 url = item.path + "/" + url;
             }
-            return '<a href="' + root + url + '">' + text + "</a>";
+            return formatNavigationTemplate(icon, root + url, text);
         } else {
-            return '<a href="' + url + '">' + text + "</a>";
+            return formatNavigationTemplate(icon, url, text);
         }
     };
+}
+
+function formatNavigationTemplate(icon, url, text){
+    return '<div class="navigation-item-content">' + icon + '<a href="' + url + '">' + text + "</a></div>" ;
 }
 
 function preventParentSelection(e) {
@@ -259,7 +264,7 @@ var dojoApi = (function($) {
 
     var dojoApi = {
         configuration: {
-            url: "http://dojo.telerik.com/",
+            url: "https://dojo.telerik.com/",
             currentKendoVersion: kendo.version
         },
         post: function (snippet) {
@@ -284,8 +289,8 @@ var dojoApi = (function($) {
             .insertBefore(element);
         },
         wrapInHtml: function(snippet) {
-            var angular = '    <script src="http://kendo.cdn.telerik.com/kendo-version/js/angular.min.js"></script>\n';
-            var jszip = '    <script src="http://kendo.cdn.telerik.com/kendo-version/js/jszip.min.js"></script>\n';
+            var angular = '    <script src="https://kendo.cdn.telerik.com/kendo-version/js/angular.min.js"></script>\n';
+            var jszip = '    <script src="https://kendo.cdn.telerik.com/kendo-version/js/jszip.min.js"></script>\n';
 
             if (!(/ng-app/i).test(snippet)) {
                 angular = '';
@@ -300,13 +305,13 @@ var dojoApi = (function($) {
                 '<head>\n'+
                 '    <meta charset="utf-8"/>\n'+
                 '    <title>Kendo UI Snippet</title>\n\n'+
-                '    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/kendo-version/styles/kendo.common.min.css"/>\n'+
-                '    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/kendo-version/styles/kendo.rtl.min.css"/>\n'+
-                '    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/kendo-version/styles/kendo.silver.min.css"/>\n'+
-                '    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/kendo-version/styles/kendo.mobile.all.min.css"/>\n\n'+
-                '    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>\n'+
+                '    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/kendo-version/styles/kendo.common.min.css"/>\n'+
+                '    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/kendo-version/styles/kendo.rtl.min.css"/>\n'+
+                '    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/kendo-version/styles/kendo.silver.min.css"/>\n'+
+                '    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/kendo-version/styles/kendo.mobile.all.min.css"/>\n\n'+
+                '    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>\n'+
                 angular + jszip +
-                '    <script src="http://kendo.cdn.telerik.com/kendo-version/js/kendo.all.min.js"></script>\n'+
+                '    <script src="https://kendo.cdn.telerik.com/kendo-version/js/kendo.all.min.js"></script>\n'+
                 '</head>\n'+
                 '<body>\n  \n'+
                 snippet+ '\n' +
@@ -320,7 +325,7 @@ var dojoApi = (function($) {
                 $('<div class="action-buttons">'+
                  '<button class="btn btn-edit" title="Edit example">Edit</button>'+
                  '<button class="btn btn-run" title="Run example">Preview</button>'+
-                 '<a href="http://dojo.telerik.com" class="btn btn-dojo" title="Open example in Kendo UI Dojo">Open In Dojo</a>'+
+                 '<a href="https://dojo.telerik.com" class="btn btn-dojo" title="Open example in Kendo UI Dojo">Open In Dojo</a>'+
                  '</div>').insertBefore(element);
             }
         },
@@ -403,21 +408,21 @@ var dojoApi = (function($) {
             '<meta charset="utf-8"/>' +
             '<meta http-equiv="X-UA-Compatible" content="IE=edge"/>' +
             '<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>' +
-            '<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>' +
+            '<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>' +
             '<style>' +
             'body {' +
                 'font-family: Helvetica, Arial, sans-serif;' +
             'font-size: 14px' +
             '}' +
             '</style>' +
-            '<link rel="stylesheet" href="//kendo.cdn.telerik.com/${version}/styles/kendo.common.min.css"/>' +
-            '<link rel="stylesheet" href="//kendo.cdn.telerik.com/${version}/styles/kendo.silver.min.css"/>' +
-            '<link rel="stylesheet" href="//kendo.cdn.telerik.com/${version}/styles/kendo.mobile.all.min.css"/>' +
-            '<link rel="stylesheet" href="//kendo.cdn.telerik.com/${version}/styles/kendo.rtl.min.css">' +
-            '<script src="//kendo.cdn.telerik.com/${version}/js/jszip.min.js"></script>' +
-            '# if ((/ng-app/i).test(snippet)) { # <script src="//kendo.cdn.telerik.com/${version}/js/angular.min.js"></script> # } #' +
-            '<script src="//kendo.cdn.telerik.com/${version}/js/kendo.all.min.js"></script>' +
-            '<script src="//kendo.cdn.telerik.com/${version}/js/kendo.timezones.min.js"></script>' +
+            '<link rel="stylesheet" href="https://kendo.cdn.telerik.com/${version}/styles/kendo.common.min.css"/>' +
+            '<link rel="stylesheet" href="https://kendo.cdn.telerik.com/${version}/styles/kendo.silver.min.css"/>' +
+            '<link rel="stylesheet" href="https://kendo.cdn.telerik.com/${version}/styles/kendo.mobile.all.min.css"/>' +
+            '<link rel="stylesheet" href="https://kendo.cdn.telerik.com/${version}/styles/kendo.rtl.min.css">' +
+            '<script src="https://kendo.cdn.telerik.com/${version}/js/jszip.min.js"></script>' +
+            '# if ((/ng-app/i).test(snippet)) { # <script src="https://kendo.cdn.telerik.com/${version}/js/angular.min.js"></script> # } #' +
+            '<script src="https://kendo.cdn.telerik.com/${version}/js/kendo.all.min.js"></script>' +
+            '<script src="https://kendo.cdn.telerik.com/${version}/js/kendo.timezones.min.js"></script>' +
             '# } #<script>' +
             'if (typeof kendo !== "undefined") kendo.mobile.Application.prototype.options.browserHistory = false;' +
             'window.onerror = function(message, url, line) {' +

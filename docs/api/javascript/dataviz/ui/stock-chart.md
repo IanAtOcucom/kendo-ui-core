@@ -2,6 +2,7 @@
 title: StockChart
 page_title: Configuration, methods and events of Kendo UI DataViz StockChart
 previous_url: /api/javascript/dataviz/stockchart, /api/dataviz/stockchart
+res_type: api
 ---
 
 # kendo.dataviz.ui.StockChart
@@ -7106,7 +7107,22 @@ Template variables:
 
 ### theme `String`
 
-Sets Chart theme. Available themes: default, blueOpal, black.
+The chart theme. This can be either a built-in theme or "sass".
+When set to "sass" the chart will read the variables from the [Sass-based themes]({% slug sassbasedthemes_kendoui %}).
+
+The supported values are:
+
+* "sass" - special value, see notes
+* "black"
+* "blueopal"
+* "bootstrap"
+* "default"
+* "highcontrast"
+* "metro"
+* "metroblack"
+* "moonlight"
+* "silver"
+* "uniform"
 
 ### title `Object`, `String`
 

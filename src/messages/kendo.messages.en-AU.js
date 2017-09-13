@@ -75,6 +75,7 @@ $.extend(true, kendo.ui.Editor.prototype.options.messages,{
   "style": "Styles",
   "emptyFolder": "Empty Folder",
   "uploadFile": "Upload",
+  "overflowAnchor": "More tools",
   "orderBy": "Arrange by:",
   "orderBySize": "Size",
   "orderByName": "Name",
@@ -113,6 +114,7 @@ $.extend(true, kendo.ui.Editor.prototype.options.messages,{
   "summary": "Summary",
   "width": "Width",
   "height": "Height",
+  "units": "Units",
   "cellSpacing": "Cell Spacing",
   "cellPadding": "Cell Padding",
   "cellMargin": "Cell Margin",
@@ -677,13 +679,6 @@ $.extend(true, kendo.spreadsheet.messages.dialogs,{
     "placeholders": {
       "typeTitle": "Type title",
       "typeMessage": "Type message"
-    }
-  },
-  "saveAsDialog": {
-    "title": "Save As...",
-    "labels": {
-      "fileName": "File name",
-      "saveAsType": "Save as type"
     }
   },
   "exportAsDialog": {

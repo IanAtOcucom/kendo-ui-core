@@ -1,5 +1,5 @@
 ---
-title: Getting Started with Kendo UI
+title: Getting Started with Progress<sup>®</sup> Kendo UI<sup>®</sup>
 page_title: Getting Started with Kendo UI | Kendo UI Getting Started
 description: "Host Kendo UI in your project, download the Bower packages, or install it by using the CDN services."
 previous_url: /install/onsite, /getting-started, /intro/getting-started, /using-kendo-with, /getting-started/using-kendo-with, /bootstrapper
@@ -7,16 +7,16 @@ slug: getting_started_installation_kendoui
 position: 1
 ---
 
-# Getting Started with Kendo UI
+# Getting Started with Progress<sup>®</sup> Kendo UI<sup>®</sup>
 
 Depending on your preferences and the requirements of your project, you can:
 
 * Download [Kendo UI for a Trial Period](http://www.telerik.com/download/kendo-ui).
-* Get your [Commercial License for Telerik Kendo UI® Professional](http://www.telerik.com/purchase/kendo-ui).
-* Get your [Commercial License for Telerik UI for ASP.NET MVC](http://www.telerik.com/purchase/aspnet-mvc).
-* Get your [Commercial License for Telerik UI for JSP](http://www.telerik.com/purchase/jsp-ui).
-* Get your [Commercial License for Telerik UI for PHP](http://www.telerik.com/purchase/php-ui).
-* Use the [GitHub Open-Source License for Telerik Kendo UI® Core](https://github.com/telerik/kendo-ui-core).
+* Get your [Commercial License for Kendo UI Professional](http://www.telerik.com/purchase/kendo-ui).
+* Get your [Commercial License for Progress<sup>®</sup> Telerik<sup>®</sup> UI for ASP.NET MVC](http://www.telerik.com/purchase/aspnet-mvc).
+* Get your [Commercial License for Progress<sup>®</sup> Telerik<sup>®</sup> UI for ASP.NET JSP](http://www.telerik.com/purchase/jsp-ui).
+* Get your [Commercial License for Progress<sup>®</sup> Telerik<sup>®</sup> UI for ASP.NET PHP](http://www.telerik.com/purchase/php-ui).
+* Use the [GitHub Open-Source License for Kendo UI Core](https://github.com/telerik/kendo-ui-core).
 
 ## Hosting Kendo UI in Your Project
 
@@ -34,7 +34,7 @@ After you [download any of the Kendo UI bundles](http://www.telerik.com/download
 |`/examples`				|Accommodates the quick-start demo files. Although they are static HTML files, it is recommended that you open them through a web server instead of directly from the file system. The latter approach breaks all Ajax data requests.|
 |`/js`							|Contains the minified JavaScript files.|
 |`/src`							|This folder used to hold the source code files, but they are now provided in a separate download package. Access the source code package from the [Downloads section](https://www.telerik.com/account/my-downloads) of your account. Note that the source code is _not_ available to trial users.|
-|`/styles`					|Consists of the minified CSS files and theme images. The folder also includes the LESS files, which can be passed to the compiler, located on the first-level folders inside `styles/folder: styles/web/` and `styles/mobile/`. Note that the LESS files are _not_ available in the trial version.|
+|`/styles`					|Consists of the minified CSS files and theme images. The folder also includes the Less files, which can be passed to the compiler, located on the first-level folders inside `styles/folder: styles/web/` and `styles/mobile/`. Note that the Less files are _not_ available in the trial version.|
 |`/wrappers`				|Includes the server-side wrappers. As it is necessary for the UI for ASP.NET MVC, UI for JSP or UI for PHP distributions only, the folder is available in the commercial packages of these versions.|
 |`changelog.html`		|Provides the Kendo UI release notes.|
 

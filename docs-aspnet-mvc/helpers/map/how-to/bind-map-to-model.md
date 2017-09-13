@@ -7,7 +7,7 @@ slug: howto_bindtomodel_map
 
 # Bind Map to View Model
 
-MVC enables you to natively bind parts of the page to the Model passed from the controller. Using this techiques you can also bind **Map** helper methods to the Model. 
+MVC enables you to natively bind parts of the page to the Model passed from the controller. Using this techiques you can also bind **Map** helper methods to the Model.
 
 Also, populate the **Markers** collection to a collection defined in the Model.
 
@@ -18,7 +18,7 @@ Models:
 ```
 public class Map
 {
-    // Map properties 
+    // Map properties
     public string Name { get; set; }
     public double CenterLatitude { get; set; }
     public double CenterLongitude { get; set; }
@@ -100,10 +100,7 @@ View:
 )
 ```
 
-
-
-
 ## See Also
 
 * [Overview of the Map HtmlHelper]({% slug overview_maphelper_aspnetmvc %})
-* [Map API Reference](/api/Kendo.Mvc.UI.Fluent/MapBuilder)
+* [Map API Reference](http://docs.telerik.com/aspnet-mvc/api/Kendo.Mvc.UI.Fluent/MapBuilder)

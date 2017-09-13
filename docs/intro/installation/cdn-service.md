@@ -31,7 +31,7 @@ For example, the `{{ site.cdnVersion }}` version can be loaded from:
 >
 > Only the Kendo UI official releases and service packs are uploaded to the CDN. Internal builds are not published to the CDN.
 
-As of the Kendo UI Q1 2014 SP1 release, the minified Kendo UI Core scripts have been available. To load them, use the `http://kendo.cdn.telerik.com/{{ site.cdnVersion }}/js/kendo.ui.core.min.js` URL.
+As of the Kendo UI Q1 2014 SP1 release, the minified Kendo UI scripts have been available. To load them, use the `http://kendo.cdn.telerik.com/{{ site.cdnVersion }}/js/kendo.ui.core.min.js` URL.
 
 > **Important**
 >

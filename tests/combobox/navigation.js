@@ -4,6 +4,7 @@ var ComboBox = kendo.ui.ComboBox;
 var data = [{text: "Foo", value: 1}, {text:"Bar", value:2}];
 var CLICK = kendo.support.touch ? "touchend" : "click";
 var SELECTED = "k-state-selected";
+var FOCUSED = "k-state-focused";
 var keys = kendo.keys;
 var combobox;
 var input;
@@ -435,7 +436,7 @@ test("Empty comboBox does not raise exception on navigate", 1, function() {
 
 test("Empty combobox does not select first focused item on ENTER", 1, function() {
     combobox = new ComboBox(input, {
-        dataSource: ["Item1", "Item2"],
+        dataSource: ["Item1", "Item2"]
     });
 
     combobox.input.focus();
@@ -455,7 +456,7 @@ test("Empty combobox does not select first focused item on ENTER", 1, function()
 test("ComboBox does not focus if refresh is called after blur", 1, function() {
     combobox = new ComboBox(input, {
         autoBind: false,
-        dataSource: ["Item1", "Item2"],
+        dataSource: ["Item1", "Item2"]
     });
 
     combobox.open();
@@ -603,4 +604,50 @@ test("ComboBox prevents default on PAGEDOWN", 1, function() {
     });
 });
 
+test("ComboBox focuses first item on Home key", 1, function() {
+    var combobox = new ComboBox(input, {
+        animation: false,
+        dataSource: getData(100)
+    });
+
+    combobox.open();
+    combobox.input.trigger({
+        type: "keydown",
+        keyCode: keys.HOME
+    });
+    ok(combobox.ul.children().first().hasClass(FOCUSED));
+});
+
+test("ComboBox focuses last item on End key", 1, function() {
+    var combobox = new ComboBox(input, {
+        animation: false,
+        dataSource: getData(100)
+    });
+
+    combobox.open();
+    combobox.input.trigger({
+        type: "keydown",
+        keyCode: keys.END
+    });
+    ok(combobox.ul.children().last().hasClass(FOCUSED));
+});
+
+test("ComboBox select focused listview item on blur", 1, function() {
+    combobox = new ComboBox(input, {
+        ignoreCase: true,
+        dataSource: ["Item1", "item1"]
+    });
+
+    combobox.value("item1");
+    combobox.input.trigger({
+        type: "keydown",
+        keyCode: kendo.keys.DOWN
+    });
+    combobox.input.trigger({
+        type: "keydown",
+        keyCode: kendo.keys.TAB
+    });
+
+    equal(combobox.value(), "item1");
+});
 })();

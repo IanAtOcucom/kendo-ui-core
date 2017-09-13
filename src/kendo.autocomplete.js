@@ -1,5 +1,5 @@
 (function(f, define){
-    define([ "./kendo.list", "./kendo.mobile.scroller" ], f);
+    define([ "./kendo.list", "./kendo.mobile.scroller", "./kendo.virtuallist" ], f);
 })(function(){
 
 var __meta__ = { // jshint ignore:line
@@ -108,6 +108,7 @@ var __meta__ = { // jshint ignore:line
                 .on("focusout" + ns, function () {
                     that._change();
                     that._placeholder();
+                    that.close();
                     wrapper.removeClass(FOCUSED);
                 })
                 .attr({
@@ -142,6 +143,7 @@ var __meta__ = { // jshint ignore:line
             that._resetFocusItemHandler = $.proxy(that._resetFocusItem, that);
 
             kendo.notify(that);
+            that._toggleCloseVisibility();
         },
 
         options: {
@@ -311,6 +313,7 @@ var __meta__ = { // jshint ignore:line
 
                 that.one("close", $.proxy(that._unifySeparators, that));
             }
+            that._toggleCloseVisibility();
         },
 
         suggest: function (word) {
@@ -426,12 +429,14 @@ var __meta__ = { // jshint ignore:line
             var options = that.options;
             var data = that.dataSource.flatView();
             var length = data.length;
+            var groupsLength = that.dataSource._group.length;
             var isActive = that.element[0] === activeElement();
             var action;
 
             that._renderFooter();
             that._renderNoData();
-            that._toggleNoData(!data.length);
+            that._toggleNoData(!length);
+            that._toggleHeader(!!groupsLength && !!length);
 
             that._resizePopup();
 
@@ -515,6 +520,16 @@ var __meta__ = { // jshint ignore:line
             return this;
         },
 
+        _preselect: function(value, text) {
+            this._inputValue(text);
+            this._accessor(value);
+
+            this._old = this.oldText =  this._accessor();
+
+            this.listView.setValue(value);
+            this._placeholder();
+        },
+
         _change: function() {
             var that = this;
             var value = that._unifySeparators().value();
@@ -536,6 +551,7 @@ var __meta__ = { // jshint ignore:line
             }
 
             that.typing = false;
+            that._toggleCloseVisibility();
         },
 
         _accessor: function (value) {
@@ -572,6 +588,8 @@ var __meta__ = { // jshint ignore:line
             if (key === keys.DOWN) {
                 if (visible) {
                     this._move(current ? "focusNext" : "focusFirst");
+                } else if (that.value()) {
+                    that.popup.open();
                 }
                 e.preventDefault();
             } else if (key === keys.UP) {
@@ -579,6 +597,10 @@ var __meta__ = { // jshint ignore:line
                     this._move(current ? "focusPrev" : "focusLast");
                 }
                 e.preventDefault();
+            } else if (key === keys.HOME) {
+                this._move("focusFirst");
+            } else if (key === keys.END) {
+                this._move("focusLast");
             } else if (key === keys.ENTER || key === keys.TAB) {
 
                 if (key === keys.ENTER && visible) {
@@ -598,6 +620,8 @@ var __meta__ = { // jshint ignore:line
             } else if (key === keys.ESC) {
                 if (visible) {
                     e.preventDefault();
+                } else {
+                    that._clearValue();
                 }
                 that.close();
             } else if (that.popup.visible() && (key === keys.PAGEDOWN || key === keys.PAGEUP)) {
@@ -734,12 +758,21 @@ var __meta__ = { // jshint ignore:line
                 "tabIndex": -1
             });
             if (this.options.clearButton) {
-                this._clear.insertAfter(this.element);
+            	this._clear.insertAfter(this.element);
+            	this.wrapper.addClass("k-autocomplete-clearable");
             }
         },
 
         _toggleHover: function(e) {
             $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
+        },
+
+        _toggleCloseVisibility: function() {
+            if (this.value()) {
+                this._showClear();
+            } else {
+                this._hideClear();
+            }
         },
 
         _wrapper: function () {

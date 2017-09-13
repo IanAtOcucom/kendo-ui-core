@@ -65,7 +65,7 @@ test("clears focused item on blur", function() {
 });
 
 test("selects next item on key DOWN", function() {
-    div.kendoTabStrip();
+    div.kendoTabStrip({tabPosition: "left"});
     addItems(2);
 
     div.focus();
@@ -79,8 +79,8 @@ test("selects next item on key DOWN", function() {
     ok(item.hasClass("k-state-active"));
 });
 
-test("misses next item if disabled", function() {
-    div.kendoTabStrip();
+test("focuses next item if disabled", function() {
+    div.kendoTabStrip({tabPosition: "left"});
     addItems(3);
 
     var tabstrip = div.data("kendoTabStrip");
@@ -93,9 +93,10 @@ test("misses next item if disabled", function() {
         keyCode: keys.DOWN
     });
 
-    var item = div.find(".k-item:last");
-    ok(!item.hasClass("k-state-focused"));
-    ok(item.hasClass("k-state-active"));
+    var item = div.find(".k-item").eq(1);
+    var lastItem = div.find(".k-item:last");
+    ok($(item).hasClass("k-state-focused"));
+    ok(!lastItem.hasClass("k-state-active"));
 });
 
 test("selects first if last is selected", function() {
@@ -116,7 +117,7 @@ test("selects first if last is selected", function() {
 });
 
 test("selects prev item on key UP", function() {
-    div.kendoTabStrip();
+    div.kendoTabStrip({tabPosition: "left"});
     addItems(2);
 
     var tabstrip = div.data("kendoTabStrip");
@@ -149,8 +150,136 @@ test("selects last if current is first", function() {
 
 });
 
-test("misses prev item if disabled", function() {
-    div.kendoTabStrip();
+test("in rtl and horizontal layout does not change selection on DOWN", function() {
+    div.addClass("k-rtl").kendoTabStrip({animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.DOWN
+    });
+
+    equal(div.find(".k-state-active").index(), 0);
+});
+
+test("in rtl and horizontal layout selects next on RIGHT", function() {
+    div.addClass("k-rtl").kendoTabStrip({animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.RIGHT
+    });
+
+    equal(div.find(".k-state-active").index(), 2);
+});
+
+test("in rtl and horizontal layout selects prev on LEFT", function() {
+    div.addClass("k-rtl").kendoTabStrip({animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.LEFT
+    });
+
+    equal(div.find(".k-state-active").index(), 1);
+});
+
+test("in rtl and horizontal layout does not change selection on UP", function() {
+    div.addClass("k-rtl").kendoTabStrip({animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.UP
+    });
+
+    equal(div.find(".k-state-active").index(), 0);
+});
+
+test("in rtl and vertical layout selects prev on UP", function() {
+    div.addClass("k-rtl").kendoTabStrip({tabPosition: "left", animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.UP
+    });
+
+    equal(div.find(".k-state-active").index(), 2);
+});
+
+test("in rtl and vertical layout does not change selection on LEFT", function() {
+    div.addClass("k-rtl").kendoTabStrip({tabPosition: "left", animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.LEFT
+    });
+
+    equal(div.find(".k-state-active").index(), 0);
+});
+
+test("in rtl and vertical layout selects next on DOWN", function() {
+    div.addClass("k-rtl").kendoTabStrip({tabPosition: "left", animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.DOWN
+    });
+
+    equal(div.find(".k-state-active").index(), 1);
+});
+
+test("in rtl and vertical layout does not change selection on RIGHT", function() {
+    div.addClass("k-rtl").kendoTabStrip({tabPosition: "left", animation: false});
+    addItems(3);
+
+    var tabstrip = div.data("kendoTabStrip");
+    tabstrip.select(0);
+    div.focus();
+
+    div.trigger({
+        type: "keydown",
+        keyCode: keys.RIGHT
+    });
+
+    equal(div.find(".k-state-active").index(), 0);
+});
+
+test("focuses prev item if disabled", function() {
+    div.kendoTabStrip({tabPosition: "left"});
     addItems(3);
 
     div.focus();
@@ -164,8 +293,10 @@ test("misses prev item if disabled", function() {
         keyCode: keys.UP
     });
 
-    var item = div.find(".k-item:first");
-    ok(item.hasClass("k-state-active"));
+    var firstItem = div.find(".k-item:first");
+    var item = div.find(".k-item").eq(1);
+    ok(item.hasClass("k-state-focused"));
+    ok(!firstItem.hasClass("k-state-active"));
 });
 
 test("selects focused item on ENTER", function() {

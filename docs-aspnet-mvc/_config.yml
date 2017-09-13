@@ -12,24 +12,29 @@ navigation:
      "getting-started":
         title: "Getting Started"
         position: 3
-     "how-to":
-        title: "How To"
-        position: 4
      "helpers":
         title: "Widgets"
-        position: 5
+        position: 4
      "vs-integration":
         title: "Visual Studio Integration"
-        position: 6
+        position: 5
      "migration":
         title: "Migration"
+        position: 6
+     "styles-and-layout":
+        title: "Styles and Appearance"
         position: 7
+     "how-to":
+        title: "How To"
+        position: 8
      "tutorials":
         title: "Tutorials"
-        position: 8
+        position: 9
      "troubleshoot":
         title: "Troubleshooting"
-        position: 9
+        position: 10
+
+
 
 ## List helpers directory names and order here, like this:
      "helpers/autocomplete":
@@ -48,6 +53,8 @@ navigation:
         title: "ColorPicker"
      "helpers/combobox":
         title: "ComboBox"
+     "helpers/dateinput":
+        title: "DateInput"
      "helpers/datepicker":
         title: "DatePicker"
      "helpers/datetimepicker":
@@ -103,10 +110,42 @@ navigation:
         title: "How To"
      "helpers/hybrid":
         title: "Hybrid"
+     "*mobileactionsheet":
+        title: "ActionSheet"
+     "*mobileapplication":
+        title: "Application"
+     "*mobilebutton":
+        title: "Button"
+     "*mobilebuttongroup":
+        title: "ButtonGroup"
+     "*mobiledrawer":
+        title: "Drawer"
+     "*mobilelayout":
+        title: "Layout"
+     "*mobilelistview":
+        title: "ListView"
+     "*mobilemodalview":
+        title: "ModalView"
+     "*mobilenavbar":
+        title: "NavBar"
+     "*mobilepopover":
+        title: "PopOver"
+     "*mobilescrollview":
+        title: "ScrollView"
+     "*mobilesplitview":
+        title: "SplitView"
+     "*mobileswitch":
+        title: "Switch"
+     "*mobiletabstrip":
+        title: "TabStrip"
+     "*mobileview":
+        title: "View"
      "helpers/lineargauge":
         title: "LinearGauge"
      "helpers/listview":
         title: "ListView"
+     "helpers/listbox":
+        title: "ListBox"
      "helpers/map":
         title: "Map"
      "helpers/maskedtextbox":
@@ -196,10 +235,10 @@ navigation:
 baseurl: /aspnet-mvc
 
 ## The Kendo UI version used
-cdnVersion: "2017.1.118"
+cdnVersion: "2017.2.621"
 
 ## The MVC Core version used
-mvcCoreVersion: "2017.1.118"
+mvcCoreVersion: "2017.2.621"
 
 ## Assign layout and category per different paths
 defaults:

@@ -2,6 +2,7 @@
 title: Spreadsheet
 page_title: Configuration, methods and events of Kendo UI Spreadsheet
 description: Code examples for Spreadsheet UI widget configuration. Learn how to use methods and which events to set once the Spreadsheet UI widget is initialized.
+res_type: api
 ---
 
 # kendo.ui.Spreadsheet
@@ -1173,7 +1174,7 @@ Those tools which are part of a tool group are defined as array. For example `["
                     {
                         type: "button",
                         text: "Custom",
-                        spriteCssClass: "k-icon k-font-icon k-i-cog",
+                        spriteCssClass: "k-icon k-i-cog",
                         click: function() {
                             window.alert("custom tool");
                         }
@@ -1283,6 +1284,31 @@ Gets the cell contextMenu instance.
 #### Returns
 
 `kendo.ui.ContextMenu` The menu instance.
+
+#### Example - dynamically adding a context menu item and associating a selection command
+```
+    <div id="spreadsheet"></div>
+
+    <script>
+        $(function() {
+            var spreadsheet = $("#spreadsheet").kendoSpreadsheet().data("kendoSpreadsheet"),
+                cellContextMenu = spreadsheet.cellContextMenu();
+
+          	cellContextMenu.append([{ text: "Highlight", cssClass: "highlight" }]);
+
+            cellContextMenu.bind("select", function(e) {
+               var command = $(e.item).text();
+
+              if(command == "Highlight") {
+              	var sheet = spreadsheet.activeSheet(),
+                    selection = sheet.selection();
+
+                selection.background("green");
+              }
+           });
+        });
+    </script>
+```
 
 ### rowHeaderContextMenu
 Gets the row header contextMenu instance.

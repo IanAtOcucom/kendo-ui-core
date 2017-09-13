@@ -2,6 +2,7 @@
 title: Gantt
 page_title: Configuration, methods and events of Kendo UI Gantt
 description: Code examples for Gantt UI widget configuration, learn how to use methods and which events to set once the gantt UI widget detail is initialized.
+res_type: api
 ---
 
 # kendo.ui.Gantt
@@ -661,7 +662,7 @@ If the `dataSource` option is an existing [kendo.data.GanttDataSource](/api/java
       dataSource: {
         transport: {
           read: {
-            url: "http://demos.telerik.com/kendo-ui/service/gantttasks",
+            url: "https://demos.telerik.com/kendo-ui/service/gantttasks",
             dataType: "jsonp"
           }
         },
@@ -728,7 +729,7 @@ If the `dataSource` option is an existing [kendo.data.GanttDataSource](/api/java
     var dataSource = new kendo.data.GanttDataSource({
       transport: {
         read: {
-          url: "http://demos.telerik.com/kendo-ui/service/gantttasks",
+          url: "https://demos.telerik.com/kendo-ui/service/gantttasks",
           dataType: "jsonp"
         }
       },
@@ -803,7 +804,7 @@ If the `dependencies` option is an existing [kendo.data.GanttDependencyDataSourc
       dataSource: {
         transport: {
           read: {
-            url: "http://demos.telerik.com/kendo-ui/service/gantttasks",
+            url: "https://demos.telerik.com/kendo-ui/service/gantttasks",
             dataType: "jsonp"
           }
         },
@@ -827,7 +828,7 @@ If the `dependencies` option is an existing [kendo.data.GanttDependencyDataSourc
       dependencies: {
         transport: {
           read: {
-            url: "http://demos.telerik.com/kendo-ui/service/ganttdependencies",
+            url: "https://demos.telerik.com/kendo-ui/service/ganttdependencies",
             dataType: "jsonp"
           }
         },
@@ -888,7 +889,7 @@ If the `dependencies` option is an existing [kendo.data.GanttDependencyDataSourc
     var dataSource = new kendo.data.GanttDataSource({
       transport: {
         read: {
-          url: "http://demos.telerik.com/kendo-ui/service/gantttasks",
+          url: "https://demos.telerik.com/kendo-ui/service/gantttasks",
           dataType: "jsonp"
         }
       },
@@ -912,7 +913,7 @@ If the `dependencies` option is an existing [kendo.data.GanttDependencyDataSourc
     var dependencyDataSource = new kendo.data.GanttDependencyDataSource({
       transport: {
         read: {
-          url: "http://demos.telerik.com/kendo-ui/service/ganttdependencies",
+          url: "https://demos.telerik.com/kendo-ui/service/ganttdependencies",
           dataType: "jsonp"
         }
       },
@@ -1091,7 +1092,7 @@ If set to `false` the user won't be able to create dependencies.
       }
     });
     </script>
-    
+
 ### editable.dependencyDestroy `Boolean` *(default: true)*
 
 If set to `false` the user won't be able to delete dependencies.
@@ -2826,11 +2827,11 @@ Sets the title of the PDF file.
 Configures the Kendo UI Gantt range settings.
 
 ### range.start `Date`
- 
+
  If set to some date the timeline of all views will start from this date.
- 
+
 #### Example
- 
+
      <div id="gantt"></div>
      <script>
      $("#gantt").kendoGantt({
@@ -2852,13 +2853,13 @@ Configures the Kendo UI Gantt range settings.
        ]
      });
      </script>
-     
+
 ### range.end `Date`
- 
+
 If set to some date the timeline of all views will end to this date.
- 
+
 #### Example
- 
+
      <div id="gantt"></div>
      <script>
      $("#gantt").kendoGantt({
@@ -2879,12 +2880,12 @@ If set to some date the timeline of all views will end to this date.
          { type: "month" }
        ]
      });
-     </script>    
+     </script>
 
 
 ### resizable `Boolean` *(default: false)*
 
-If set to `true` allows users to resize columns by dragging their header borders. By default resizing is disabled.    
+If set to `true` allows users to resize columns by dragging their header borders. By default resizing is disabled.
 
 #### Example
 
@@ -3115,7 +3116,7 @@ The [template](/api/javascript/kendo#methods-template) which renders the command
 #### Example - set the template as a function
     <div id="gantt"></div>
     <script id="template" type="text/x-kendo-template">
-    <a class="k-button" href="\#" onclick="return toolbar_click()">Command</a>
+    <a class="k-button" href="" onclick="return toolbar_click()">Command</a>
     </script>
     <script>
     function toolbar_click() {
@@ -3149,7 +3150,7 @@ The [template](/api/javascript/kendo#methods-template) which renders the command
     $("#gantt").kendoGantt({
       toolbar: [
         {
-          template: '<a class="k-button" href="\\#" onclick="return toolbar_click()">Command</a>'
+          template: '<a class="k-button" href="" onclick="return toolbar_click()">Command</a>'
         }
       ],
       dataSource: [
@@ -3307,13 +3308,13 @@ Overrides the [date](#configuration-date) option of the gantt.
 Configures the view range settings.
 
 ### views.range.start `Date`
- 
+
 If set to some date the timeline of the view will start from this date.
- 
+
 Overrides the [range.start](#configuration-range.start) option of the gantt.
- 
+
 #### Example
- 
+
      <div id="gantt"></div>
      <script>
      $("#gantt").kendoGantt({
@@ -3335,15 +3336,15 @@ Overrides the [range.start](#configuration-range.start) option of the gantt.
        ]
      });
      </script>
-     
+
 ### views.range.end `Date`
- 
+
 If set to some date the timeline of the view will end to this date.
- 
+
 Overrides the [range.end](#configuration-range.end) option of the gantt.
- 
+
 #### Example
- 
+
      <div id="gantt"></div>
      <script>
      $("#gantt").kendoGantt({
@@ -5134,7 +5135,7 @@ The widget instance which fired the event.
     var gantt = $("#gantt").data("kendoGantt");
     gantt.bind("change", gantt_change);
     </script>
-       
+
 ### columnResize
 
 Fired when the user resizes a column.

@@ -2,6 +2,7 @@
 title: Calendar
 page_title: Configuration, methods and events of Kendo UI Calendar
 description: Find out how to successfully configure calendar UI component, how to use methods to get the max value of the calendar and navigate easily.
+res_type: api
 ---
 
 # kendo.ui.Calendar
@@ -169,6 +170,38 @@ note that a check for an empty `date` is needed, as the widget can work with a n
         });
     </script>
 
+### messages `Object`
+
+Allows localization of the strings that are used in the widget.
+
+#### Example
+
+    <div id="calendar"></div>
+    <script>
+    $("#calendar").kendoCalendar({
+        "weekNumber": true,
+        "messages": {
+            "weekColumnHeader": "W"
+        }
+     })
+    </script>
+
+### messages.weekColumnHeader `String` *(default: "")*
+
+Allows customization of the week column header text. Set the value to make the widget compliant with web accessibility standards.
+
+#### Example
+
+    <div id="calendar"></div>
+    <script>
+    $("#calendar").kendoCalendar({
+        "weekNumber": true,
+        "messages": {
+            "weekColumnHeader": "W"
+        }
+     })
+    </script>
+
 ### min `Date`*(default: Date(1900, 0, 1))*
 
  Specifies the minimum date, which the calendar can show.
@@ -268,9 +301,41 @@ note that a check for an empty `date` is needed, as the widget can work with a n
         });
     </script>
 
+### selectable `String`  *(default: "single")*
+
+By default user is able to select a single date. The property can also be set to "multiple" in order the multiple  date selection to be enabled. More information about multiple selection can be found in the [Selection]({% slug overview_kendoui_calendar_widget %}#selection) article.  
+
+#### Example - enable the multiple selection
+
+    <div id="calendar"></div>
+    <script>
+        $("#calendar").kendoCalendar({
+            selectable: "multiple"
+        });
+    </script>
+
+> Check [Selection](http://demos.telerik.com/kendo-ui/calendar/selection) for a live demo.
+
+### selectDates `Array`  *(default: [])*
+
+Specifies which dates to be selected when the calendar is initialized. 
+
+> **Important:** This configuration option requires the [selectable](/api/javascript/ui/calendar#configuration-selectable): "multiple" option to be set.
+
+#### Example - set two dates to be selected upon calendar initialization
+
+    <div id="calendar"></div>
+    <script>
+        $("#calendar").kendoCalendar({
+           selectDates: [new Date(2013, 10, 10), new Date(2015, 10, 10)]
+        });
+    </script>
+
+> Check [Selection](http://demos.telerik.com/kendo-ui/calendar/selection) for a live demo.
+
 ### weekNumber `Boolean` *(default: false)*
 
-If set to `true` a week of the year will be shown on the left side of the calendar. It is possible to define a template in order to customize what will be displayed.  
+If set to `true` a week of the year will be shown on the left side of the calendar.  
 
 #### Example - enable the week of the year option
 
@@ -509,6 +574,38 @@ Navigates to the upper view.
         var calendar = $("#calendar").data("kendoCalendar");
 
         calendar.navigateUp();
+    </script>
+
+### selectDates
+
+Gets/Sets the selected dates for the calendar.
+
+> **Important:** This method requires the [selectable](/api/javascript/ui/calendar#configuration-selectable): "multiple" option to be set.
+
+#### Example - gets the selected dates of the widget
+
+    <div id="calendar"></div>
+    <script>
+        $("#calendar").kendoCalendar({
+            selectDates: [new Date(2013, 10, 10), new Date(2015, 10, 10)]
+        });
+
+        var calendar = $("#calendar").data("kendoCalendar");
+
+        var value = calendar.selectDates();
+    </script>
+
+#### Example - sets the value of the widget
+
+    <div id="calendar"></div>
+    <script>
+        $("#calendar").kendoCalendar({
+            selectDates: [new Date(2013, 10, 10), new Date(2015, 10, 10)]
+        });
+
+        var calendar = $("#calendar").data("kendoCalendar");
+
+        calendar.selectDates([new Date(2016, 10,10), new Date()]);
     </script>
 
 ### value

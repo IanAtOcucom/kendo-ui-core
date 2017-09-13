@@ -10,47 +10,47 @@ position: 1
 
 The MaskedTextBox HtmlHelper extension is a server-side wrapper for the [Kendo UI MaskedTextBox](https://demos.telerik.com/kendo-ui/maskedtextbox/index) widget.
 
-## Getting Started
-
-### Configuration
+## Configuration
 
 Below are listed the steps for you to follow when configuring the Kendo UI MaskedTextBox.
 
-**Step 1** Make sure you followed all the steps from the [introductory article on Telerik UI for ASP.NET MVC]({% slug overview_aspnetmvc %}).
+1. Make sure you followed all the steps from the [introductory article on Telerik UI for ASP.NET MVC]({% slug overview_aspnetmvc %}).
 
-**Step 2** Create a new action method which renders the view.
+1. Create a new action method which renders the view.
+
+    ###### Example
 
         public ActionResult Index()
         {
             return View();
         }
 
-**Step 3** Add a MaskedTextBox.
+1. Add a MaskedTextBox.
 
-###### Example
+    ###### Example
 
-```tab-ASPX
+    ```tab-ASPX
 
-        <%: Html.Kendo().MaskedTextBox()
-                .Name("maskedtextbox") //The name of the MaskedTextBox is mandatory. It specifies the "id" attribute of the widget.
-                .Mask("(000) 000-0000") //Set the mask value of the MaskedTextBox.
-                .Value("(123) 345-6789") //Set the value of the MaskedTextBox.
-        %>
-```
-```tab-Razor
+            <%: Html.Kendo().MaskedTextBox()
+                    .Name("maskedtextbox") //The name of the MaskedTextBox is mandatory. It specifies the "id" attribute of the widget.
+                    .Mask("(000) 000-0000") //Set the mask value of the MaskedTextBox.
+                    .Value("(123) 345-6789") //Set the value of the MaskedTextBox.
+            %>
+    ```
+    ```tab-Razor
 
-        @(Html.Kendo().MaskedTextBox()
-              .Name("maskedtextbox") //The name of the MaskedTextBox is mandatory. It specifies the "id" attribute of the widget.
-              .Mask("(000) 000-0000") //Set the mask value of the MaskedTextBox.
-              .Value("(123) 345-6789") //Set the value of the MaskedTextBox.
-        )
-```
+            @(Html.Kendo().MaskedTextBox()
+                  .Name("maskedtextbox") //The name of the MaskedTextBox is mandatory. It specifies the "id" attribute of the widget.
+                  .Mask("(000) 000-0000") //Set the mask value of the MaskedTextBox.
+                  .Value("(123) 345-6789") //Set the value of the MaskedTextBox.
+            )
+    ```
 
 ### Define Mask Values
 
 The MaskedTextBox has [a list of predefined mask rules](http://docs.telerik.com/kendo-ui/controls/editors/maskedtextbox/overview#configuration-Rules), which can be used to compose the mask of a widget.
 
-The example below demonstrates how to set a `zip code` mask
+The following example demonstrates how to set a `zip code` mask
 
 ###### Example
 
@@ -71,13 +71,13 @@ The example below demonstrates how to set a `zip code` mask
 
 > **Important**
 >
-> If no mask is defined, the widget allows for any input.
+> If no mask is defined, the widget allows any input.
 
 ### Define Custom Mask Rules
 
-The MaskedTextBox enables you to define custom mask rules if none of the predefined ones is sufficient. To add a custom rule, use the `Rules` method.
+The MaskedTextBox enables you to define custom mask rules if none of the predefined ones is suitable. To add a custom rule, use the `Rules` method.
 
-The example below demonstrates how to define a custom rule for the `-` (minus) and `+` (plus) symbols.
+The following example demonstrates how to define a custom rule for the `-` (minus) and `+` (plus) symbols.
 
 ###### Example
 
@@ -108,11 +108,11 @@ The example below demonstrates how to define a custom rule for the `-` (minus) a
 
 ## Event Handling
 
-You can subscribe to all MaskedTextBox [events](/kendo-ui/api/javascript/ui/maskedtextbox#events).
+You can subscribe to all MaskedTextBox [events](http://docs.telerik.com/kendo-ui/api/javascript/ui/maskedtextbox#events).
 
 ### By Handler Name
 
-The examples below demonstrates how to subscribe to events by a handler name.
+The following example demonstrates how to subscribe to events by a handler name.
 
 ###### Example
 
@@ -147,6 +147,10 @@ The examples below demonstrates how to subscribe to events by a handler name.
 
 ### By Template Delegate
 
+The following example demonstrates how to subscribe to events by a template delegate.
+
+###### Example
+
 ```tab-Razor
 
       @(Html.Kendo().MaskedTextBox()
@@ -165,7 +169,7 @@ The examples below demonstrates how to subscribe to events by a handler name.
 
 ### Existing Instances
 
-You can reference an existing Kendo UI MaskedTextBox instance via [`jQuery.data()`](http://api.jquery.com/jQuery.data/). Once a reference is established, use the [MaskedTextBox API](/kendo-ui/api/javascript/ui/maskedtextbox#methods) to control its behavior.
+To reference an existing Kendo UI MaskedTextBox instance, use the [`jQuery.data()`](http://api.jquery.com/jQuery.data/) configuration option. Once a reference is established, use the [MaskedTextBox API](http://docs.telerik.com/kendo-ui/api/javascript/ui/maskedtextbox#methods) to control its behavior.
 
 ###### Example
 
@@ -179,14 +183,12 @@ You can reference an existing Kendo UI MaskedTextBox instance via [`jQuery.data(
 
 ## See Also
 
-Other articles on Telerik UI for ASP.NET MVC and on the MaskedTextBox:
-
-* [ASP.NET MVC API Reference: MaskedTextBoxBuilder](/api/Kendo.Mvc.UI.Fluent/MaskedTextBoxBuilder)
+* [Telerik UI for ASP.NET MVC API Reference: MaskedTextBoxBuilder](http://docs.telerik.com/aspnet-mvc/api/Kendo.Mvc.UI.Fluent/MaskedTextBoxBuilder)
 * [Overview of Telerik UI for ASP.NET MVC]({% slug overview_aspnetmvc %})
 * [Fundamentals of Telerik UI for ASP.NET MVC]({% slug fundamentals_aspnetmvc %})
 * [Scaffolding in Telerik UI for ASP.NET MVC]({% slug scaffolding_aspnetmvc %})
 * [Overview of the Kendo UI MaskedTextBox Widget](http://docs.telerik.com/kendo-ui/controls/editors/maskedtextbox/overview)
-* [Telerik UI for ASP.NET MVC API Reference Folder](/api/Kendo.Mvc/AggregateFunction)
+* [Telerik UI for ASP.NET MVC API Reference Folder](http://docs.telerik.com/kendo-ui/api/Kendo.Mvc/AggregateFunction)
 * [Telerik UI for ASP.NET MVC HtmlHelpers Folder]({% slug overview_autocompletehelper_aspnetmvc %})
 * [Tutorials on Telerik UI for ASP.NET MVC]({% slug overview_timeefficiencyapp_aspnetmvc6 %})
 * [Telerik UI for ASP.NET MVC Troubleshooting]({% slug troubleshooting_aspnetmvc %})

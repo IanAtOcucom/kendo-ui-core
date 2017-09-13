@@ -13,7 +13,7 @@ The example below demonstrates how to use FontAwesome icons with the Kendo UI Gr
 
 ```html
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <script src="http://demos.kendoui.com/content/shared/js/people.js"></script>
+    <script src="https://demos.telerik.com/kendo-ui/content/shared/js/people.js"></script>
 
     <div id="example" class="k-content">
         <div id="grid"></div>
@@ -28,8 +28,9 @@ The example below demonstrates how to use FontAwesome icons with the Kendo UI Gr
               pageSize: 20,
               data: createRandomData(50)
             },
-			sortable: true,
+            sortable: true,
             columnMenu: true,
+            filterable: true,
             pageable: true,
             height: 430,
             columns: [
@@ -39,16 +40,11 @@ The example below demonstrates how to use FontAwesome icons with the Kendo UI Gr
               { command: {
                 text: " View Details",
                 click: showDetails,
-                className: "fa fa-map-marker"
+                iconClass: "fa fa-map-marker"
               },
                title: " ",
                width: "140px"
-              }],
-              dataBound: function (e) {
-                e.sender.tbody.find(".k-button.fa").each(function(idx, element){
-                  $(element).removeClass("fa fa-map-marker").find("span").addClass("fa fa-map-marker");
-                });
-              }
+              }]
           }).data("kendoGrid");
 
           wnd = $("#details")
@@ -100,34 +96,34 @@ The example below demonstrates how to use FontAwesome icons with the Kendo UI Gr
         display: inline-block;
         padding-top: 0.5em;
         color: #2e2e2e;
-        width: 20px;
+        width: 16px;
         height: 20px;
       }
 
-      .k-grid-pager .k-pager-numbers .k-current-page .k-pager-nav:after {
-        margin-top: -1em;
-      }
-
-      .k-column-menu .k-i-arrow-e:before {
+      .k-column-menu .k-i-arrow-60-right:before {
         content: "\f061";
       }
-      .k-header-column-menu .k-i-arrowhead-s:before{
+       .k-header-column-menu .k-i-more-vertical:before{
         content: "\f063";
       }
 
-      .k-column-menu .k-filter:before {
+      .k-column-menu .k-i-filter:before {
         content: "\f0b0";
       }
 
+      .k-column-menu .k-i-arrow-60-down:before {
+        content: "\f063";
+      }  
+        
       .k-column-menu .k-i-columns:before {
         content: "\f0db";
       }
 
-      .k-column-menu .k-i-sort-asc:before {
+      .k-column-menu .k-i-sort-asc-sm:before {
         content: "\f0dd";
       }
 
-      .k-column-menu .k-i-sort-desc:before {
+      .k-column-menu .k-i-sort-desc-sm:before {
         content: "\f0de";
       }
 
@@ -155,8 +151,6 @@ The example below demonstrates how to use FontAwesome icons with the Kendo UI Gr
 
 ## See Also
 
-Other articles on the Kendo UI Grid and how-to examples related to its layout:
-
 * [Kendo UI Grid JavaScript API Reference](/api/javascript/ui/grid)
 * [How to Adjust Row Height with Virtual Scrolling]({% slug howto_adjust_row_height_withvirtual_scrolling_grid %})
 * [How to Apply Minimum Width during Column Resize]({% slug howto_apply_min_width_during_column_resize_grid %})
@@ -166,4 +160,4 @@ Other articles on the Kendo UI Grid and how-to examples related to its layout:
 * [How to Hide the Vertical Scrollbar When Not Needed]({% slug howto_hide_vertical_scrollbar_grid %})
 * [How to Resize Grid When Window Is Resized]({% slug howto_resize_whenthe_windowis_resized_grid %})
 
-For more runnable examples on the Kendo UI Grid, browse its [**How To** documentation folder]({% slug howto_create_custom_editors_grid %}).
+For more runnable examples on the Kendo UI Grid, browse its [**How To** documentation folder]({% slug howto_adjust_row_heights_template_locked_columns_grid %}).

@@ -3,6 +3,7 @@ title: Draggable
 page_title: Draggable UI Widget | Kendo UI API Documentation
 description: Configuration steps and types of events which are triggered in Kendo UI Draggable.
 previous_url: /api/framework/draggable
+res_type: api
 ---
 
 # kendo.ui.Draggable
@@ -578,7 +579,7 @@ The `hold` event represents a jQuery `mousedown` event and contains all the even
         hint: function(element) {
           var hintElement = $("<div id='hint'></div>");
           hintElement.css({
-            "background-image": "url('http://demos.telerik.com/kendo-ui/content/web/combobox/tShirt.png')",
+            "background-image": "url('https://demos.telerik.com/kendo-ui/content/web/combobox/tShirt.png')",
         	"width": "248px",
         	"height": "289px"
           });

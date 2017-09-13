@@ -1,5 +1,5 @@
 (function(f, define){
-    define([ "./kendo.list", "./kendo.mobile.scroller" ], f);
+    define([ "./kendo.list", "./kendo.mobile.scroller", "./kendo.virtuallist" ], f);
 })(function(){
 
 var __meta__ = { // jshint ignore:line
@@ -223,6 +223,7 @@ var __meta__ = { // jshint ignore:line
 
                 if (that.filterInput && that.options.minLength !== 1) {
                     that.refresh();
+                    that._dataSource();
                     that.popup.one("activate", that._focusInputHandler);
                     that.popup.open();
                     that._resizeFilterInput();
@@ -230,7 +231,11 @@ var __meta__ = { // jshint ignore:line
                     that._filterSource();
                 }
             } else if (that._allowOpening()) {
+                that._open = true;
                 that.popup.one("activate", that._focusInputHandler);
+                // In some cases when the popup is opened resize is triggered which will cause it to close
+                // Setting the below flag will prevent this from happening
+                that.popup._hovered = true;
                 that.popup.open();
                 that._resizeFilterInput();
                 that._focusItem();
@@ -599,6 +604,7 @@ var __meta__ = { // jshint ignore:line
             e.preventDefault();
             this.popup.unbind("activate", this._focusInputHandler);
             this._focused = this.wrapper;
+            this._prevent = false;
             this._toggle();
         },
 
@@ -694,6 +700,10 @@ var __meta__ = { // jshint ignore:line
                 return;
             }
 
+            if (key === keys.SPACEBAR) {
+                that.toggle(!isPopupVisible);
+            }
+
             handled = that._move(e);
 
             if (handled) {
@@ -722,6 +732,7 @@ var __meta__ = { // jshint ignore:line
                             that._blur();
                         }
                     });
+                    e.preventDefault();
                 }
             }
 
@@ -885,7 +896,7 @@ var __meta__ = { // jshint ignore:line
                 return;
             }
 
-            if (filterInput && compareElement[0] === active) {
+            if (filterInput && (compareElement[0] === active || this._open)) {
                 this._prevent = true;
                 this._focused = element.focus();
             }
@@ -1014,20 +1025,21 @@ var __meta__ = { // jshint ignore:line
         },
 
         _focusItem: function() {
+            var options = this.options;
             var listView = this.listView;
             var focusedItem = listView.focus();
             var index = listView.select();
 
             index = index[index.length - 1];
 
-            if (index === undefined && this.options.highlightFirst && !focusedItem) {
+            if (index === undefined && options.highlightFirst && !focusedItem) {
                 index = 0;
             }
 
             if (index !== undefined) {
                 listView.focus(index);
             } else {
-                if (this.options.optionLabel) {
+                if (options.optionLabel && (!options.virtual || options.virtual.mapValueTo !== "dataItem")) {
                     this._focus(this.optionLabel);
                     this._select(this.optionLabel);
                 } else {
@@ -1101,7 +1113,7 @@ var __meta__ = { // jshint ignore:line
 
             this._resetOptionLabel(" k-state-selected");
 
-            if (dataItem) {
+            if (dataItem || dataItem === 0) {
                 text = dataItem;
                 value = that._dataValue(dataItem);
                 if (optionLabel) {

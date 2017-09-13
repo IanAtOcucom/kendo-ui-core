@@ -8,7 +8,9 @@ position: 1
 
 # Scheduler Overview
 
-The [Kendo UI Scheduler widget](http://demos.telerik.com/kendo-ui/scheduler/index) displays a set of events&mdash;appointments or tasks. It can display scheduled events in different views&mdash;a single day, a whole week, or month and as a list of tasks which need to be accomplished.
+The [Kendo UI Scheduler widget](http://demos.telerik.com/kendo-ui/scheduler/index) displays a set of events&mdash;appointments or tasks.
+
+It can display scheduled events in different views&mdash;a single day, a whole week, or month and as a list of tasks which need to be accomplished.
 
 ## Getting Started
 
@@ -76,19 +78,19 @@ The example below demonstrates how to bind the Scheduler to a remote service.
             batch: true, // Enable batch updates
             transport: {
                 read: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks",
                     dataType: "jsonp"
                 },
                 update: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks/update",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks/update",
                     dataType: "jsonp"
                 },
                 create: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks/create",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks/create",
                     dataType: "jsonp"
                 },
                 destroy: {
-                    url: "http://demos.telerik.com/kendo-ui/service/tasks/destroy",
+                    url: "https://demos.telerik.com/kendo-ui/service/tasks/destroy",
                     dataType: "jsonp"
                 },
                 parameterMap: function(options, operation) {

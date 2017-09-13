@@ -1,7 +1,7 @@
 ---
 title: Make Columns Editable Conditionally
 page_title: Make Columns Editable Conditionally | Kendo UI Grid HtmlHelper
-description: "Configure the Grid for ASP.NET MVC columns to be editable based on condition."
+description: "Learn how to configure the Grid for ASP.NET MVC columns to be editable based on condition."
 slug: howto_conditionallyeditablecolumns_gridaspnetmv
 ---
 
@@ -13,7 +13,7 @@ By default, the current `dataItem` is passed to the JavaScript method as an argu
 
 To enable this functionality, follow the steps and refer to the examples below. They demonstrate how to make a column editable depending on a value in the Model.
 
-1. Add the `Enabled` property for a Grid column and specify the name of the JavaScript method.
+1. Add the `Editable` property for a Grid column and specify the name of the JavaScript method.
 
     ###### Example
 
@@ -53,6 +53,6 @@ To enable this functionality, follow the steps and refer to the examples below. 
 ## See Also
 
 * [Overview of the Grid HtmlHelper]({% slug overview_gridhelper_aspnetmvc %})
-* [GridBuilder API Reference](/api/Kendo.Mvc.UI.Fluent/GridBuilder)
+* [GridBuilder API Reference](http://docs.telerik.com/aspnet-mvc/api/Kendo.Mvc.UI.Fluent/GridBuilder)
 
-For more runnable examples on the Kendo UI Grid in ASP.NET MVC applications, browse its [**How To** documentation folder]({% slug howto_applycustomrowstylesbasedondata_gridaspnetmvc %}).
+For more runnable examples on the Kendo UI Grid in ASP.NET MVC applications, browse its [**How To** documentation folder]({% slug howto_applycustomrrowstylesmodeldata_gridaspnetmv %}).

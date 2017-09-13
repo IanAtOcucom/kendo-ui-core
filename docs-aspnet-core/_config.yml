@@ -9,15 +9,45 @@ navigation:
 ## List your directory names and order here, like this:
 
 
+     "api":
+        title: "API Reference"
+        position: 0
+     "getting-started":
+        title: "Getting Started"
+        position: 2
+     "helpers":
+        title: "Widgets"
+        position: 3
+     "helpers/tag-helpers":
+        title: "Tag Helpers"
+     "helpers/html-helpers":
+        title: "Html Helpers"
+     "how-to":
+        title: "How To"
+        position: 4
+     "vs-integration":
+        title: "Visual Studio Integration"
+        position: 5
+     "migration":
+        title: "Migration"
+        position: 6
+     "tutorials":
+        title: "Tutorials"
+        position: 7
+     "troubleshoot":
+        title: "Troubleshooting"
+        position: 8
+
+
 
 ## The application virtual path
 baseurl: /aspnet-core
 
 ## The Kendo UI version used
-cdnVersion: "2017.1.118"
+cdnVersion: "2017.2.621"
 
 ## The MVC Core version used
-mvcCoreVersion: "2017.1.118"
+mvcCoreVersion: "2017.2.621"
 
 ## Assign layout and category per different paths
 defaults:

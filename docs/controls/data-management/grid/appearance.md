@@ -12,7 +12,7 @@ The [Kendo UI Grid widget](http://demos.telerik.com/kendo-ui/grid/index) support
 
 ## Scrolling
 
-By default, the scrolling functionality of the Grid is enabled. For historical reasons, however, the [Grid MVC wrapper](http://docs.telerik.com/aspnet-mvc/helpers/grid/configuration#scrolling) does not support it. To disable the scrolling functionality, set the `scrollable` option to `false`.
+The scrolling functionality of the Grid is enabled by default. To disable the scrolling functionality, set the `scrollable` option to `false`. On the other hand, the [Grid MVC wrapper](http://docs.telerik.com/aspnet-mvc/helpers/grid/configuration#scrolling) has scrolling disabled by default for historical reasons, but it can be enabled.
 
 ###### Example
 
@@ -175,7 +175,7 @@ Virtual scrolling relies on a fake scrollbar. Its size is not determined by the 
 
 To ensure that all table rows have the same heights, use either of the options:
 * Disable text wrapping.  
-* Set an explicit row height that is large enough (as demonstrated in the example below).
+* Set an explicit row height that is large enough (as demonstrated in the following example).
 
 ###### Example
 
@@ -203,33 +203,56 @@ When a virtualized Grid is scrolled, it renders the table rows for the reached s
 
 If the total number of items is large and the scrolling is fast, the table of the Grid can be re-rendered frequently. If, additionally, the page size is huge, the user might observe issues with the smoothness of the scrolling. In such cases, consider reducing the page size and increasing the Grid height to improve the scrolling performance.
 
-### Limitations of Virtual Scrolling
+### Limitations for Virtual Scrolling
 
 * Horizontal scrolling is not virtualized.
-
 * Either enable virtual scrolling or paging. Do not apply both features at the same time.
-
-* Virtual scrolling is not compatible with grouping, hierarchy, and editing.
-
+* Virtual scrolling is not compatible with grouping and hierarchy. Editing is supported as of R3 2017.
 * Virtual scrolling relies on calculating the average row height based on already loaded data. Having a large variance of row heights or an unknown number of rows that are not bound to data (such as group headers) might cause unexpected behavior.
-
 * Provide for a page size of the Grid that is large enough, so that the table rows do not fit in the scrollable data area. Otherwise the vertical virtual scrollbar will not be created. The page size of the Grid must be over three times larger than the number of visible table rows in the data area.
-
 * A scrollable Grid with a set height needs to be visible when initialized. In this way the Grid adjusts the height of its scrollable data area in accordance with the total height of the widget. In certain scenarios the Grid might be invisible when initialized - for example, when placed inside an initially inactive TabStrip tab or in another widget. In such cases use either of the following options:
     * Initialize the Grid while its element is still visible.
     * Initialize the Grid in a suitable event of the parent widget - for example, in the `activate` event of the TabStrip.
-
 * Because of height-related browser limitations (which cannot be avoided), virtual scrolling works with up to one or two million records. The exact number of records depends on the browser and the row height. If you use a row count that is larger than the browser can handle, unexpected widget behavior or JavaScript errors might occur. In such cases, revert to standard paging.
-
 * Refreshing or replacing the Grid data in the virtual mode has to be accompanied by resetting the position of the virtual scrollbar to zero&mdash;for example, by using `$('#GridID .k-scrollbar').scrollTop(0);`. In some scenarios, you might also need to call the [`refresh()` method](http://docs.telerik.com/kendo-ui/api/javascript/ui/grid#methods-refresh).
-
 * Programmatic scrolling to a particular Grid row is not supported when virtual scrolling is enabled, because it is not possible to reliably predict the exact scroll offset of the row.
-
 * When the Grid is `navigatable`, keyboard navigation supports only the `Up Arrow` and `Down Arrow` keys. The `Page Up` and `Page Down` key scrolling is not supported.
-
 * The Grid does not persist [selection](#selection) when virtual scrolling occurs. To achieve this behavior, [use this custom implementation]({% slug howto_persist_row_selection_paging_sorting_filtering_grid %}).
 
 When virtual scrolling is not supported or recommended, revert to standard paging or non-virtual scrolling without paging, depending on the number of data items.
+
+### Endless Scrolling
+
+The endless scroll mode enables the request of new items when the scrollbar of the Grid reaches its end. When the data is returned, the Grid will render only the new items and append them to the old ones.
+
+###### Example
+
+    $("#grid").kendoGrid({
+        scrollable: {
+            endless: true
+        },
+        // other configuration
+    });
+
+### Limitations for Endless Scrolling
+
+If grouping is applied and the Grid is scrolled to the bottom, the number of the requested items will be equal to the number of items and the page size.
+
+When the Grid is used in its endless scroll mode together with grouping, the following behavior occurs:
+
+* If the last group is collapsed, the items from that group will be requested.
+* If a group spans multiple pages, multiple requests will be made.
+* When a particular subset of items is returned, the items will be rendered and hidden because the group is collapsed. Items will continue to be requested until a new group is reached or until no more items to request are present.
+
+If you use remote binding, enable `serverGrouping` for the Grid so that grouping is applied to all items.
+
+If you enable regular paging, the editing functionality behaves in a similar way. The difference as compared to the endless scrolling is that when an item is opened for editing, it will not be closed after another page is requested.
+
+If the Grid displays hierarchical data and an item gets expanded, it will not be collapsed when the items are scrolled and a new page is requested.
+
+> **Important**
+>
+> Operations, such as filtering, sorting, and grouping, reset the scroll position.
 
 ## Height
 
@@ -252,7 +275,7 @@ It is advisable to set a height to the Grid only if its scrolling is enabled.
 
 When the height of the Grid is set, it calculates the appropriate height of its scrollable data area, so that the sum of the header rows, filter row, data, footer, and pager is equal to the expected height of the widget. That is why if the height of the Grid is changed through JavaScript after you create the widget,  you need to call the [`resize` method of the Grid]({% slug responsivewebdesign_integration_kendoui %}) afterwards. In this way the Grid recalculates the height of its data area.
 
-**Figure 1. Grid with a fixed height and its scrolling functionality enabled**
+**Figure 1: Grid with a fixed height and its scrolling functionality enabled**
 
 ![Grid With Fixed Height And Scrolling](/controls/data-management/grid/grid3_1.png)
 
@@ -441,6 +464,7 @@ The Grid allows you to lock columns on one side of the table. For the feature to
 * Define the height of the Grid.
 * Set explicit pixel widths to all columns to allow the Grid to adjust the layout of the frozen and non-frozen table parts.
 * Make sure that the total width of all locked columns is equal to or less than the width of the Grid minus three times the width of the scrollbar.
+* Make sure that the Grid is not [initialized inside a hidden container](#hidden-containers).
 
 These settings ensure that at least one non-locked column is always visible and that it is possible to scroll the non-locked columns horizontally. Note that if the horizontal space intended for it is not enough, the horizontal scrollbar does not appear.
 
@@ -479,7 +503,7 @@ It is possible to get a table row in the Grid by the ID of the data item. To ach
 
 It is possible to manually add a table row with some user-friendly message when the dataSource does not return any data&mdash;for example, as a result of filtering.
 
-The example below demonstrates how to add a table row in the [`dataBound`](/api/javascript/ui/grid#events-dataBound) event handler of the Grid.
+The following example demonstrates how to add a table row in the [`dataBound`](/api/javascript/ui/grid#events-dataBound) event handler of the Grid.
 
 ###### Example
 
@@ -545,7 +569,7 @@ For more information on how to initialize the Grid inside other Kendo UI widgets
 
 As of the Kendo UI Q1 2016 release, row hover state styles are added to all Kendo UI themes. Hover is a useful UI state providing visual affordance especially across long table rows and in the editing mode of the Grid. However, in some scenarios, the `hover` state might be misleading and is not recommended.
 
-To remove the hover styling, use wither of the ways:
+To remove the hover styling, use either of the ways:
 * Open the Kendo UI theme CSS file (for example, `kendo.default.min.css`) and remove the CSS rule shown in the following example.
 
   ###### Example

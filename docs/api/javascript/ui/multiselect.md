@@ -1,6 +1,7 @@
 ---
 title: MultiSelect
 page_title: Configuration, methods and events of Kendo UI MultiSelect
+res_type: api
 ---
 
 # kendo.ui.MultiSelect
@@ -148,7 +149,7 @@ If set to `true`, the widget automatically adjusts the width of the popup elemen
 
 #### Example - enable autoWidth
 
-    <input id="multiselect" style="width: 100px;" />
+    <select id="multiselect" style="width: 100px;"></select>
     <script>
     $("#multiselect").kendoMultiSelect({
       autoWidth: true,
@@ -211,7 +212,7 @@ If the `dataSource` option is an existing [kendo.data.DataSource](/api/javascrip
     var dataSource = new kendo.data.DataSource({
       transport: {
         read: {
-          url: "http://demos.telerik.com/kendo-ui/service/products",
+          url: "https://demos.telerik.com/kendo-ui/service/products",
           dataType: "jsonp"
         }
       }
@@ -307,7 +308,7 @@ If set to `true` the widget will not show all items when the text of the search 
 
 #### Example - enforce minLength
 
-    <input id="multiselect" />
+    <select id="multiselect"></select>
     <script>
     $("#multiselect").kendoMultiSelect({
         placeholder: "Select products...",
@@ -365,7 +366,7 @@ The [template](/api/javascript/kendo#methods-template) used to render the fixed 
                 dataSource: {
                     type: "odata",
                     transport: {
-                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                        read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
                     },
                     group: { field: "Country" }
                 }
@@ -414,7 +415,7 @@ The [template](/api/javascript/kendo#methods-template) used to render the groups
                 dataSource: {
                     type: "odata",
                     transport: {
-                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                        read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
                     },
                     group: { field: "Country" }
                 }
@@ -470,7 +471,7 @@ If set to `false` case-sensitive search will be performed to find suggestions. T
     });
     </script>
 
-### minLength `Number`*(default: 0)*
+### minLength `Number`*(default: 1)*
 
 The minimum number of characters the user must type before a search is performed. Set to a higher value if the search could match a lot of items.
 A zero value means that a request will be made as soon as the user focuses the widget.
@@ -587,7 +588,7 @@ Defines a jQuery selector that will be used to find a container element, where t
 #### Example - append the popup to a specific element
 
     <div id="container">
-        <input id="multiselect" />
+        <select id="multiselect"></select>
     </div>
     <script>
     $("#multiselect").kendoMultiSelect({
@@ -621,7 +622,7 @@ The available "x" positions are:
 #### Example - append the popup to a specific element
 
     <div id="container">
-        <input id="multiselect" />
+        <select id="multiselect"></select>
     </div>
     <script>
     $("#multiselect").kendoMultiSelect({
@@ -655,7 +656,7 @@ The available "x" positions are:
 #### Example - append the popup to a specific element
 
     <div id="container">
-        <input id="multiselect" />
+        <select id="multiselect"></select>
     </div>
     <script>
     $("#multiselect").kendoMultiSelect({
@@ -734,7 +735,7 @@ The [template](/api/javascript/kendo#methods-template) used to render the items 
     });
     </script>
 
-### tagTemplate `String`
+### tagTemplate `String|Function`
 
 The [template](/api/javascript/kendo#methods-template) used to render the tags.
 
@@ -910,7 +911,7 @@ For detailed information, refer to the [article on virtualization]({% slug virtu
                     itemHeight: 26,
                     valueMapper: function(options) {
                         $.ajax({
-                            url: "http://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
+                            url: "https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
                             type: "GET",
                             dataType: "jsonp",
                             data: convertValues(options.value),
@@ -923,7 +924,7 @@ For detailed information, refer to the [article on virtualization]({% slug virtu
                 dataSource: {
                     type: "odata",
                     transport: {
-                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+                        read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
                     },
                     schema: {
                         model: {
@@ -978,7 +979,7 @@ For detailed information, refer to the [article on virtualization]({% slug virtu
               source: new kendo.data.DataSource({
                 type: "odata",
                 transport: {
-                  read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+                  read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
                 },
                 schema: {
                   model: {
@@ -1003,7 +1004,7 @@ For detailed information, refer to the [article on virtualization]({% slug virtu
 
         function orderValueMapper(options) {
             $.ajax({
-              url: "http://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
+              url: "https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
               type: "GET",
               dataType: "jsonp",
               data: convertValues(options.value),
@@ -1045,7 +1046,7 @@ If the developer does not specify one, the framework will automatically set `ite
                     itemHeight: 26,
                     valueMapper: function(options) {
                         $.ajax({
-                            url: "http://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
+                            url: "https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
                             type: "GET",
                             dataType: "jsonp",
                             data: convertValues(options.value),
@@ -1063,7 +1064,7 @@ If the developer does not specify one, the framework will automatically set `ite
                 dataSource: {
                     type: "odata",
                     transport: {
-                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+                        read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
                     },
                     schema: {
                         model: {
@@ -1124,7 +1125,7 @@ The widget will pass the selected value(s) in the `valueMapper` function. In tur
                     itemHeight: 26,
                     valueMapper: function(options) {
                         $.ajax({
-                            url: "http://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
+                            url: "https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper",
                             type: "GET",
                             dataType: "jsonp",
                             data: convertValues(options.value),
@@ -1137,7 +1138,7 @@ The widget will pass the selected value(s) in the `valueMapper` function. In tur
                 dataSource: {
                     type: "odata",
                     transport: {
-                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+                        read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
                     },
                     schema: {
                         model: {

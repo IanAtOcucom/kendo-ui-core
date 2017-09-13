@@ -12,13 +12,13 @@ position: 4
 
 ## Overview
 
-Telerik maintains a number of NuGet packages related to Kendo UI. All official releases, service packs, and internal builds are available for registered users only.
+NuGet package manager offers a number of Kendo UI packages. All official releases and service packs are available for registered users only.
 
 ## Telerik Private NuGet Feed
 
 ### Installation
 
-To install Telerik NuGet packages, refer to the article on [getting started with the Telerik UI for ASP.NET MVC](http://docs.telerik.com/aspnet-mvc/getting-started/nuget-install).
+To install Kendo UI NuGet packages, refer to the article on [getting started with the Telerik UI for ASP.NET MVC](http://docs.telerik.com/aspnet-mvc/getting-started/nuget-install).
 
 ### Local Content Distribution
 
@@ -35,7 +35,7 @@ The NuGet Feed provides the following packages related to the UI for ASP.NET MVC
 
     > **Important**
     >
-    > The packages for [Telerik UI for ASP.NET MVC](http://docs.telerik.com/aspnet-mvc/getting-started/nuget-install) are listed in a separate section.
+    > The packages for [Telerik<sup>®</sup> UI for ASP.NET MVC](http://docs.telerik.com/aspnet-mvc/getting-started/nuget-install) are listed in a separate section.
 
 ## See Also
 

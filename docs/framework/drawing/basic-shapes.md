@@ -12,7 +12,7 @@ position: 2
 
 Scenes are constructed from a set of built-in basic shapes. **Figure 1** below demonstrates a simple, static scene.
 
-**Figure 1. Basic scene**
+**Figure 1: Basic scene**
 
 ![Basic Scene](images/basic-scene.png)
 
@@ -46,7 +46,7 @@ In terms of the Drawing API this scene consists of a path (the violet border), t
         );
 
         // Create the image
-        var imageUrl = "http://demos.telerik.com/kendo-ui/content/dataviz/diagram/people/diego.jpg";
+        var imageUrl = "https://demos.telerik.com/kendo-ui/content/dataviz/diagram/people/diego.jpg";
         var image = new draw.Image(imageUrl, imageRect);
 
         // Create the text
@@ -160,7 +160,7 @@ Now create the image in the way demonstrated in the example below.
 
 ###### Example
 
-    var imageUrl = "http://demos.telerik.com/content/dataviz/diagram/people/diego.jpg";
+    var imageUrl = "https://demos.telerik.com/content/dataviz/diagram/people/diego.jpg";
     var image = new draw.Image(imageUrl, imageRect);
 
 ### Draw the Text

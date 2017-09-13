@@ -71,6 +71,10 @@ The Kendo UI PDF generator is tested and supported in the following _desktop_ br
 * Internet Explorer 9 and later.
 * Latest Chrome, Firefox, Safari, and Blink-based Opera versions.
 
+> **Important**
+>
+> Internet Explorer 9 and Safari do not support the option for saving files. To achieve this, you need to [implement a server proxy]({% slug exporting_pdf_kendoui_grid_widget %}#server-proxy).
+
 Officially, PDF export is not supported on mobile because of browser limitations and CORS-related security restrictions in hybrid applications. For example, it is not possible to load locally stored font files in hybrid applications. Though exporting in PDF might work on some mobile devices in specific scenarios, PDF export is _not_ supported in:
 
 * Mobile browsers.
@@ -93,7 +97,7 @@ To ensure the best performance of your project, make sure that you:
 * Exporting a zoomed in or zoomed out page to PDF is not supported.
 * [Quirks mode](http://www.quirksmode.org/css/quirksmode.html) is not supported.
 
-    > **Important**  
+    > **Important**
     >
     > Always specify a [DOCTYPE](http://www.sitepoint.com/web-foundations/doctypes/). Recommended DOCTYPEs include `HTML5`, `XHTML 1.1`, `XHTML 1.0 Strict` and `HTML4 Strict`. The `HTML4 Transitional` DOCTYPE fires the Quirks mode and should not be used. `XHTML 1.0 Transitional` works well in most cases, but may cause issues with the vertical positioning of icons. The correct syntax for [all DOCTYPEs](http://www.w3.org/QA/2002/04/valid-dtd-list.html) is provided on the [W3C website](http://www.w3.org/).
 

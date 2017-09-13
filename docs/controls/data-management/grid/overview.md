@@ -110,11 +110,11 @@ The HTML table is usually already populated with data. This improves the accessi
 
     </script>
 
-> **Important**  
+> **Important**
 >
-> The Grid uses a Kendo UI DataSource instance even when the widget is created from an HTML table. The content of the cell is extracted and populates the DataSource in the following way:  
->    1. The names of the data fields in the DataSource are either created from the content of the header cells or from the `data-field` attributes of the header cells.  
->    2. The names of the data fields have to be valid JavaScript identifiers. Therefore, it is recommended to use the `data-field` attributes. Otherwise the cell content of the header has to meet the following requirements:  
+> The Grid uses a Kendo UI DataSource instance even when the widget is created from an HTML table. The content of the cell is extracted and populates the DataSource in the following way:
+>    1. The names of the data fields in the DataSource are either created from the content of the header cells or from the `data-field` attributes of the header cells.
+>    2. The names of the data fields have to be valid JavaScript identifiers. Therefore, it is recommended to use the `data-field` attributes. Otherwise the cell content of the header has to meet the following requirements:
 >      * No spaces
 >      * No special characters
 >      * The first character has to be a letter
@@ -144,7 +144,7 @@ As the above code snippets demonstrate, the client object of the Grid is attache
 
 Refer to an existing Grid instance through the [`jQuery.data()`](http://api.jquery.com/jQuery.data/). Once a reference has been established, use the [Grid API](/api/javascript/ui/grid) to control its behavior.
 
-The example below demonstrates how to access an existing Grid instance.
+The following example demonstrates how to access an existing Grid instance.
 
 ###### Example
 
